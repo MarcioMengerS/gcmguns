@@ -10,6 +10,6 @@ import br.com.gcm.sac.setor_armamento.model.Gcm;
 @Repository
 public interface GcmRepository extends JpaRepository<Gcm, Integer>{
     Gcm findByNumero(Short numero);
-    List<Gcm> findByNumeroGreaterThan(Short numero);
     List<Gcm> findByNomeContaining(String nome);
+    //List<Gcm> findByNumeroGreaterThan(Short numero);
 }

@@ -23,10 +23,10 @@ public class GcmController {
     @Autowired
     GcmService gcmService;
     
-    //Salva objeto GM no BD
+    //Salva objeto GCM no BD
     @PostMapping("/add")
-    public Gcm salvar(@RequestBody Gcm gcm) {
-        return gcmService.save(gcm);
+    public ResponseEntity<Object> salvar(@RequestBody Gcm gcm) {
+        return ResponseEntity.ok().body(gcmService.save(gcm));
     }
 
     //Lista todos ojetos GCMs do BD
@@ -38,12 +38,15 @@ public class GcmController {
     //Exclui Objeto do BD
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> excluirPorID(@PathVariable("id") Integer id) {
-        if(gcmService.existById(id)){
+        gcmService.findById(id);
+        gcmService.deleteById(id);
+        return new ResponseEntity<>("Objeto excluído com sucesso", HttpStatus.OK);
+        /*if(gcmService.existById(id)){
             gcmService.deleteById(id);
             return new ResponseEntity<>("Objeto excluído com sucesso", HttpStatus.OK);
         }
         else
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);*/
     }
 
     //Modifica dados do objeto GCM cadastrado no BD
@@ -54,12 +57,15 @@ public class GcmController {
 
 //######################################## Métodos de Busca ###################################
     //Pesquisa no BD objeto GCM por ID
-    @GetMapping("/find/{id}")
-    public ResponseEntity<Gcm> encontarPorId(@PathVariable Integer id) {
+    @GetMapping("/find/{id}") //localhost:8080/find/10
+    public ResponseEntity<Gcm> buscarPorId(@PathVariable Integer id) {
+        return ResponseEntity.ok().body(gcmService.findById(id));
+        /*opção 2:
         if(gcmService.existById(id))
             return new ResponseEntity<Gcm>(gcmService.findById(id), HttpStatus.OK);
         else
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);*/
+        
     }
 
     //Pesquisa por parte do nome do GCM
@@ -68,9 +74,9 @@ public class GcmController {
         return gcmService.findByNameContaining(nome);
     }
 
-    //Pesquisa GCMs que possuem idade maior que....
+    //Pesquisa GCMs que possuem numero maior que....
     @GetMapping("/number/{numero}")//localhost:8080/number/717
-    public Gcm pesquisaIdadeGcmMaiorQue(@PathVariable Short numero){
+    public Gcm buscarGcmPorNum(@PathVariable Short numero){
         return gcmService.findByNumber(numero);
     }
 }
