@@ -32,10 +32,10 @@ findByNomeContaining;
 ## Implementado pacote *controller*
 ### Classe GcmController
 #### Atributos / Métodos:
-* Salvar no Banco de Dados  (localhost:8080/add)
-* Listar todos  (localhost:8080/list)
-* Buscar por ID (localhost:8080/find/{id})
-* Buscar pelo numero (localhost:8080/number/{numero})
-* Excluir (localhost:8080/delete/{id})
-* Alterar (localhost:8080/modify)
-* Pesquisar por parte do nome (localhost:8080/name)
+* salvar (localhost:8080/add)
+* listarTodos (localhost:8080/list)
+* buscarPorId (localhost:8080/find/{id})
+* buscarGcmPorNum(localhost:8080/number/{numero})
+* excluirPorId (localhost:8080/delete/{id})
+* alterar (localhost:8080/modify)
+* buscarPorParteNome (localhost:8080/name)
