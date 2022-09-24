@@ -1,6 +1,10 @@
 package br.com.gcm.sac.setor_armamento.controller;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,16 +27,17 @@ public class GcmController {
     @Autowired
     GcmService gcmService;
     
-    //Salva objeto GCM no BD
-    @PostMapping("/add")
-    public ResponseEntity<Object> salvar(@RequestBody Gcm gcm) {
-        return ResponseEntity.ok().body(gcmService.save(gcm));
+    //cria objeto GCM no BD
+    @PostMapping
+    public ResponseEntity<Gcm> salvar(@Valid @RequestBody Gcm gcm) throws URISyntaxException {
+        URI location = new URI("/sac");
+        return ResponseEntity.created(location).body(gcmService.save(gcm));
     }
 
     //Lista todos ojetos GCMs do BD
-    @GetMapping("/list")
-    public List<Gcm> listarTodos(){
-        return gcmService.listAll();
+    @GetMapping
+    public ResponseEntity<List<Gcm>> listarTodos(){
+        return ResponseEntity.ok().body(gcmService.listAll());
     }
 
     //Exclui Objeto do BD
@@ -41,12 +46,6 @@ public class GcmController {
         gcmService.findById(id);
         gcmService.deleteById(id);
         return new ResponseEntity<>("Objeto excluído com sucesso", HttpStatus.OK);
-        /*if(gcmService.existById(id)){
-            gcmService.deleteById(id);
-            return new ResponseEntity<>("Objeto excluído com sucesso", HttpStatus.OK);
-        }
-        else
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);*/
     }
 
     //Modifica dados do objeto GCM cadastrado no BD
@@ -60,17 +59,11 @@ public class GcmController {
     @GetMapping("/find/{id}") //localhost:8080/find/10
     public ResponseEntity<Gcm> buscarPorId(@PathVariable Integer id) {
         return ResponseEntity.ok().body(gcmService.findById(id));
-        /*opção 2:
-        if(gcmService.existById(id))
-            return new ResponseEntity<Gcm>(gcmService.findById(id), HttpStatus.OK);
-        else
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);*/
-        
     }
 
     //Pesquisa por parte do nome do GCM
-    @GetMapping("/name")//localhost:8080/name?nome=marcio
-    public List<Gcm> pesquisaPorTrechoNome(@RequestParam("nome") String nome) {
+    @GetMapping("/name")//localhost:8080/name?nome=superman
+    public List<Gcm> buscarPorParteNome(@RequestParam("nome") String nome) {
         return gcmService.findByNameContaining(nome);
     }
 

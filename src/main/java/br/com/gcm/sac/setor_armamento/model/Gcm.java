@@ -1,11 +1,18 @@
 package br.com.gcm.sac.setor_armamento.model;
 
-import javax.persistence.Column;
+import java.time.LocalDate;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
+import org.hibernate.validator.constraints.Length;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,17 +22,26 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table
 public class Gcm {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;//int +-2.147.483.647
 
-    @Column(nullable = false) //Não pode ser nulo
-    private Short numero; //short: +-32.767
+    @NotNull
+    @Positive
+    private Short numero; //short: +32.767 a -32.767
 
-    @Column(nullable = false) //Não pode ser nulo
+    @NotNull(message = "Nome não deve ser nulo")
+    @NotBlank
+    @Length(max = 50)
     private String nome;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dataNas;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dataAdmis;
+
+    @Email(regexp = "[\\w-]+@([\\w-]+\\.)+[\\w-]+")
     private String email;
 }
