@@ -22,6 +22,7 @@ import br.com.gcm.sac.setor_armamento.model.Gcm;
 import br.com.gcm.sac.setor_armamento.service.GcmService;
 
 @RestController
+//@RequestMapping("v1/")
 public class GcmController {
 
     @Autowired
@@ -29,7 +30,7 @@ public class GcmController {
     
     //cria objeto GCM no BD
     @PostMapping
-    public ResponseEntity<Gcm> salvar(@Valid @RequestBody Gcm gcm) throws URISyntaxException {
+    public ResponseEntity<Gcm> salvar(@RequestBody @Valid Gcm gcm) throws URISyntaxException {
         URI location = new URI("/sac");
         return ResponseEntity.created(location).body(gcmService.save(gcm));
     }
@@ -68,8 +69,24 @@ public class GcmController {
     }
 
     //Pesquisa GCMs que possuem numero maior que....
-    @GetMapping("/number/{numero}")//localhost:8080/number/717
+    @GetMapping("/{numero}")//localhost:8080/717
     public Gcm buscarGcmPorNum(@PathVariable Short numero){
         return gcmService.findByNumber(numero);
+    }
+    
+    //Calcula idade do GCM
+    @GetMapping("/idade/{numero}")
+    public int devolveIdade(@PathVariable Short numero){
+        Gcm gm = new Gcm();
+        gm = gcmService.findByNumber(numero);
+        return gm.calcularIdade();
+    }
+
+    //calcula tempo de serviço em anos
+    @GetMapping("/tempo-serv/{numero}")
+    public int calculaTempoServ(@PathVariable Short numero){
+        Gcm gm = new Gcm();
+        gm = gcmService.findByNumber(numero);
+        return gm.calcularAnosServico();
     }
 }
