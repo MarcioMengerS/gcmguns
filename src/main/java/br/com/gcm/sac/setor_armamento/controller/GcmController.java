@@ -43,10 +43,8 @@ public class GcmController {
 
     //Exclui Objeto do BD
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<String> excluirPorID(@PathVariable("id") Integer id) {
-        gcmService.findById(id);
-        gcmService.deleteById(id);
-        return new ResponseEntity<>("Objeto excluído com sucesso", HttpStatus.OK);
+    public ResponseEntity<String> excluirPorID(@PathVariable Integer id) {
+        return ResponseEntity.ok().body(gcmService.deleteById(id));
     }
 
     //Modifica dados do objeto GCM cadastrado no BD

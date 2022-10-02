@@ -8,9 +8,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
@@ -30,20 +32,23 @@ public class Gcm {
     private Integer id;//int +-2.147.483.647
 
     @NotNull
-    @Positive
+    @Min(value=1)
     private Short numero; //short: +32.767 a -32.767
 
     @NotBlank(message = "Nome não pode estar em branco")
     @Length(max = 50)
+    @Pattern(regexp = "^(?![ ])(?!.*[ ]{2})((?:e|da|do|das|dos|de|d'|D'|la|las|el|los)\\s*?|(?:[A-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð'][^\\s]*\\s*?)(?!.*[ ]$))+$")
     private String nome;
 
     @CPF
     private String cpf;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Past(message = "A data deve estar no passado!")
     private LocalDate dataNas;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Past(message = "A data deve estar no passado!")
     private LocalDate dataAdmis;
 
     @Email(regexp = "[\\w-]+@([\\w-]+\\.)+[\\w-]+")
