@@ -1,4 +1,4 @@
-package br.com.gcm.sac.setor_armamento.controller;
+package br.com.gcm.sac.setor_armamento.controllers;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -7,7 +7,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,14 +28,18 @@ public class GcmController {
     GcmService gcmService;
     
     //cria objeto GCM no BD
-    @PostMapping
-    public ResponseEntity<Gcm> salvar(@RequestBody @Valid Gcm gcm) throws URISyntaxException {
+    @PostMapping("/save")
+    public ResponseEntity<Gcm> salvar(@RequestBody @Valid Gcm gcm, Short numero ) throws URISyntaxException {
         URI location = new URI("/sac");
-        return ResponseEntity.created(location).body(gcmService.save(gcm));
+        if(null != gcmService.findByNumber(numero)){
+            return ResponseEntity.created(location).body(gcmService.save(gcm));
+        }else{
+            return ResponseEntity.ok().body(gcmService.findByNumber(numero));
+        }
     }
 
     //Lista todos ojetos GCMs do BD
-    @GetMapping
+    @GetMapping("/listall")
     public ResponseEntity<List<Gcm>> listarTodos(){
         return ResponseEntity.ok().body(gcmService.listAll());
     }
@@ -66,7 +69,7 @@ public class GcmController {
         return gcmService.findByNameContaining(nome);
     }
 
-    //Pesquisa GCMs que possuem numero maior que....
+    //Pesquisa GCMs por numero
     @GetMapping("/{numero}")//localhost:8080/717
     public Gcm buscarGcmPorNum(@PathVariable Short numero){
         return gcmService.findByNumber(numero);
@@ -75,16 +78,14 @@ public class GcmController {
     //Calcula idade do GCM
     @GetMapping("/idade/{numero}")
     public int devolveIdade(@PathVariable Short numero){
-        Gcm gm = new Gcm();
-        gm = gcmService.findByNumber(numero);
+        Gcm gm = gcmService.findByNumber(numero);
         return gm.calcularIdade();
     }
 
     //calcula tempo de serviço em anos
     @GetMapping("/tempo-serv/{numero}")
     public int calculaTempoServ(@PathVariable Short numero){
-        Gcm gm = new Gcm();
-        gm = gcmService.findByNumber(numero);
-        return gm.calcularAnosServico();
+        Gcm gm2 = gcmService.findByNumber(numero);
+        return gm2.calcularAnosServico();
     }
 }

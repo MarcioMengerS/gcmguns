@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import br.com.gcm.sac.setor_armamento.model.Gcm;
@@ -33,8 +32,7 @@ public class GcmService {
 
     //Exclui objeto GCM do repository/BD
     public String deleteById(Integer id){
-        Optional<Gcm> gcmOpt = gcmRepository.findById(id);
-        Gcm gcm = gcmOpt.get();
+        Gcm gcm = gcmRepository.findById(id).get();
         gcmRepository.deleteById(id);
         return String.format("%s foi deletado com sucesso", gcm.getNome());
     }
@@ -51,8 +49,12 @@ public class GcmService {
         return gcmRepository.findByNomeContaining(nome);
     }
 
-    //Busca no BD lista de GCM com idade maior que...
+    //Busca no BD por numero do GCM
     public Gcm findByNumber(Short numero) {
         return gcmRepository.findByNumero(numero);
+       
+    //} catch (Exception e) {
+        //    return Optional.empty();
+       // }
     }
 }
