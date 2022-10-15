@@ -1,7 +1,6 @@
 package br.com.gcm.sac.setor_armamento.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
