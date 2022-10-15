@@ -54,7 +54,7 @@ public class Gcm {
     @Email(regexp = "[\\w-]+@([\\w-]+\\.)+[\\w-]+")
     private String email;
 
-    public int calcularIdade(){
+    public Integer calcularIdade(){
         LocalDate nascimento = LocalDate.of(this.dataNas.getYear(), this.dataNas.getMonth(), this.dataNas.getDayOfMonth());
         final LocalDate dataAtual = LocalDate.now();
         Period periodo = Period.between(nascimento, dataAtual);

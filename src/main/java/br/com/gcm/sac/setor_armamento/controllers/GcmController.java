@@ -3,6 +3,7 @@ package br.com.gcm.sac.setor_armamento.controllers;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -77,7 +78,7 @@ public class GcmController {
     
     //Calcula idade do GCM
     @GetMapping("/idade/{numero}")
-    public int devolveIdade(@PathVariable Short numero){
+    public Integer devolveIdade(@PathVariable Short numero){
         Gcm gm = gcmService.findByNumber(numero);
         return gm.calcularIdade();
     }
