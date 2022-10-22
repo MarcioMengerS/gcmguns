@@ -2,11 +2,15 @@ package br.com.gcm.sac.setor_armamento.model;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -53,6 +57,10 @@ public class Gcm {
 
     @Email(regexp = "[\\w-]+@([\\w-]+\\.)+[\\w-]+")
     private String email;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    //@JoinColumn(name = "address_id", referencedColumnName = "id")
+    private List<Address> enderecos;
 
     public Integer calcularIdade(){
         LocalDate nascimento = LocalDate.of(this.dataNas.getYear(), this.dataNas.getMonth(), this.dataNas.getDayOfMonth());

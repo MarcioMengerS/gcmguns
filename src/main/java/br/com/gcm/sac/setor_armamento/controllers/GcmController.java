@@ -3,7 +3,6 @@ package br.com.gcm.sac.setor_armamento.controllers;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -30,12 +29,13 @@ public class GcmController {
     
     //cria objeto GCM no BD
     @PostMapping("/save")
-    public ResponseEntity<Gcm> salvar(@RequestBody @Valid Gcm gcm, Short numero ) throws URISyntaxException {
+    public ResponseEntity<Gcm> salvar(@RequestBody @Valid Gcm gcm) throws URISyntaxException {
         URI location = new URI("/sac");
-        if(null != gcmService.findByNumber(numero)){
+        //Se objeto existir no banco retorna o objeto senão salva
+        if(null == gcmService.findByNumber(gcm.getNumero())){
             return ResponseEntity.created(location).body(gcmService.save(gcm));
         }else{
-            return ResponseEntity.ok().body(gcmService.findByNumber(numero));
+            return ResponseEntity.ok().body(gcmService.findByNumber(gcm.getNumero()));
         }
     }
 

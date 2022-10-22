@@ -13,8 +13,10 @@ import br.com.gcm.sac.setor_armamento.repository.GcmRepository;
 public class GcmService {
 
     //Criação de construtor e atributo recomendado pela documentação
+    //Atributo da classe GcmService
     private final GcmRepository gcmRepository;
 
+    //Construtor
     public GcmService(GcmRepository gcmRepository){
         this.gcmRepository = gcmRepository;
     }
