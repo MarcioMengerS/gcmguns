@@ -1,4 +1,4 @@
-# Gerenciamento de Insumos GCM:
+# Gerenciamento de Materiais GCM:
 ## Implementado pacote *repository*
 ### Classe GcmRepository
 #### Atributos / Métodos:
@@ -22,20 +22,33 @@ findByNomeContaining;
 #### Atributos / Métodos:
 * Atributos
   - Id (gerado automaticamente pelo banco)
-  - Nome (não pode ser nulo)
   - Número (Não pode ser nulo)
+  - Nome (não pode ser nulo)
+  - cpf
+  - dataNas
+  - dataAdmis
   - email
-* Construtor
-* Getters
-* Setters
+  - enderecos
+* construtor()
+* calcularIdade()
+* calcularAnosServico()
+* getters
+* setters
 
 ## Implementado pacote *controller*
 ### Classe GcmController
 #### Atributos / Métodos:
-* salvar (localhost:8080/add)
-* listarTodos (localhost:8080/list)
-* buscarPorId (localhost:8080/find/{id})
-* buscarGcmPorNum(localhost:8080/number/{numero})
+* salvar (localhost:8080/save)
+* listarTodos (localhost:8080/listall)
 * excluirPorId (localhost:8080/delete/{id})
 * alterar (localhost:8080/modify)
+* buscarPorId (localhost:8080/find/{id})
 * buscarPorParteNome (localhost:8080/name)
+* buscarGcmPorNum(localhost:8080/{numero})
+* devolveIdade (localhost:8080/idade/{numero})
+* calcularTempoServ (localhost:8080/temp-serv/{numero})
+
+## Implementado pacote *Configuration*
+### Classe CorsConfiguration
+#### Método:
+* addCorsMappings (CorsRegistry registry)
