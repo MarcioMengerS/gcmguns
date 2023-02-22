@@ -10,7 +10,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -21,6 +23,8 @@ import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -61,6 +65,9 @@ public class Gcm {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     //@JoinColumn(name = "address_id", referencedColumnName = "id")
     private List<Address> enderecos;
+    
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true/*, fetch = FetchType.EAGER*/)
+    private Card card;
 
     public Integer calcularIdade(){
         LocalDate nascimento = LocalDate.of(this.dataNas.getYear(), this.dataNas.getMonth(), this.dataNas.getDayOfMonth());

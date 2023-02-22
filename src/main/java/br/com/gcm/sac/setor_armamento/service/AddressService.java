@@ -14,7 +14,12 @@ public class AddressService {
 
     //Salva Endereço no AddressRepository
     public Address save(Address end){
-    return addressRepository.save(end);
+        return addressRepository.save(end);
     }
 
+    public String deleteById(Integer id){
+        Address add = addressRepository.findById(id).get();
+        addressRepository.deleteById(id);
+        return String.format("%s foi deletado com sucesso", add.getLogradouro());
+    }
 }

@@ -17,10 +17,10 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Address implements Serializable{
 
-    private static final long serialVersion = 1L;
+    private static final long serialVersionUid = -1314843665707276799L;
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private Short numero;
     private String logradouro;
