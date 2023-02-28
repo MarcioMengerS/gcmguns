@@ -6,8 +6,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
-import javax.websocket.Session;
-
 import br.com.gcm.sac.setor_armamento.model.Card;
 import br.com.gcm.sac.setor_armamento.repository.CardRepository;
 

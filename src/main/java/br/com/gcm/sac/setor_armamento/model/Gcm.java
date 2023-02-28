@@ -24,8 +24,6 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -63,10 +61,11 @@ public class Gcm {
     private String email;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    //@JoinColumn(name = "address_id", referencedColumnName = "id")
-    private List<Address> enderecos;
+    @JoinColumn(name = "gcm_id")
+    private List<Address> address;
     
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true/*, fetch = FetchType.EAGER*/)
+    @OneToOne(cascade = CascadeType.ALL, optional = true)
+    @JoinColumn(name = "card_id", referencedColumnName = "id")
     private Card card;
 
     public Integer calcularIdade(){

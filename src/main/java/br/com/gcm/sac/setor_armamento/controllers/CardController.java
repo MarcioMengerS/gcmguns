@@ -25,11 +25,17 @@ public class CardController {
     @PostMapping("/savecard/{idGcm}")
     public Card saveCard(@PathVariable Integer idGcm){ /*passar id do GCM para salvar o relacionamento*/
         Card tag = new Card();
-        tag.obtemCard();//entra no método que abre a porta de comunicação
-        Gcm gcm = gcmService.findById(idGcm);
+        Gcm gcm = gcmService.findById(idGcm); //busca gcm no banco
+
+        tag.obtemCard();//entra no método que abre a porta de comunicação e forma objeto Card
+        //salva gcm na Tag
+        //tag.setGcm(gcm);
+        //tagService.save(tag);
+
+        //Salva Tag no Gcm
         gcm.setCard(tag);
         gcm = gcmService.save(gcm);
-        return gcm.getCard();
+        return null;
     }
 
     @GetMapping("/listcards")

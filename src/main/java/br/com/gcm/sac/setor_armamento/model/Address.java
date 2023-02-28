@@ -1,7 +1,6 @@
 package br.com.gcm.sac.setor_armamento.model;
 
 import java.io.Serializable;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,11 +15,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 public class Address implements Serializable{
-
-    private static final long serialVersionUid = -1314843665707276799L;
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private Short numero;
     private String logradouro;

@@ -2,13 +2,10 @@ package br.com.gcm.sac.setor_armamento.model;
 
 import br.com.gcm.sac.setor_armamento.configuration.PacketListener;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,12 +25,14 @@ public class Card {
     private Integer id;
     private String card;
 
+
+    //@OneToOne(cascade = CascadeType.ALL) //colocado agora
+    //private Gcm gcm;
+
     public static String devicePortName = "USB-SERIAL CH340";
     public static SerialPort arduinoPort = null;
     public static InputStream arduinoStream = null;
     public static int PACKET_SIZE_IN_BYTES = 8;
-
-
 
     public void obtemCard(){
         int len = SerialPort.getCommPorts().length;

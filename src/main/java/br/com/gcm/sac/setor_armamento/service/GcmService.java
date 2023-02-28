@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import br.com.gcm.sac.setor_armamento.model.Address;
 import br.com.gcm.sac.setor_armamento.model.Gcm;
 import br.com.gcm.sac.setor_armamento.repository.GcmRepository;
 
@@ -38,6 +39,19 @@ public class GcmService {
         return String.format("%s foi deletado com sucesso", gcm.getNome());
     }
 
+    public Gcm update(Gcm g, Integer id){
+        Gcm gcm = gcmRepository.findById(id).get();
+        gcm.setAddress(g.getAddress());
+        gcm.setCard(g.getCard());
+        gcm.setNumero(g.getNumero());
+        gcm.setNome(g.getNome());
+        gcm.setCpf(g.getCpf());
+        gcm.setDataNas(g.getDataNas());
+        gcm.setDataAdmis(g.getDataAdmis());
+        gcm.setEmail(g.getEmail());
+        return gcmRepository.save(gcm);
+    }
+
 //######################################## Métodos de Busca ###################################
     //Busca pelo id objeto GCM no repository/BD
     public Gcm findById(Integer id) {
@@ -53,9 +67,5 @@ public class GcmService {
     //Busca no BD por numero do GCM
     public Gcm findByNumber(Short numero) {
         return gcmRepository.findByNumero(numero);
-       
-    //} catch (Exception e) {
-        //    return Optional.empty();
-       // }
     }
 }
