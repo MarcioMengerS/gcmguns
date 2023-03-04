@@ -6,7 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import br.com.gcm.sac.setor_armamento.model.Address;
 import br.com.gcm.sac.setor_armamento.model.Gcm;
 import br.com.gcm.sac.setor_armamento.repository.GcmRepository;
 
@@ -41,8 +40,6 @@ public class GcmService {
 
     public Gcm update(Gcm g, Integer id){
         Gcm gcm = gcmRepository.findById(id).get();
-        gcm.setAddress(g.getAddress());
-        gcm.setCard(g.getCard());
         gcm.setNumero(g.getNumero());
         gcm.setNome(g.getNome());
         gcm.setCpf(g.getCpf());

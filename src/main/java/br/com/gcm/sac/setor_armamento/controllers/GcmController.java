@@ -95,7 +95,7 @@ public class GcmController {
         return gm2.calcularAnosServico(); //model.Gcm
     }
 
-    //Mostra todos os endereços de um GCM específico
+    //Busca todos os ENDEREÇOS de um GCM específico
     @GetMapping("/get-add/{numero}")
     public List<Address> obterEnderecos(@PathVariable Short numero) {
         Gcm gcm = gcmService.findByNumber(numero);

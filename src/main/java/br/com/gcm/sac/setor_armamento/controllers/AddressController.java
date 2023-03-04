@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.gcm.sac.setor_armamento.model.Address;
@@ -16,7 +17,7 @@ import br.com.gcm.sac.setor_armamento.service.AddressService;
 import br.com.gcm.sac.setor_armamento.service.GcmService;
 
 @RestController
-//@RequestMapping("/category")
+@RequestMapping("/address")
 public class AddressController {
     
     @Autowired 
@@ -24,27 +25,27 @@ public class AddressController {
     @Autowired
     GcmService gcmService;
 
-    @PostMapping("/add-address/{id_Gcm}")
-    public ResponseEntity<Address> saveAddress(@RequestBody Address addr, @PathVariable Integer id_Gcm){
+    //Cadastra endereço no respectivo GCM
+    @PostMapping("/{id_Gcm}")
+    public ResponseEntity<Address> save(@RequestBody Address addr, @PathVariable Integer id_Gcm){
         Gcm gcm = gcmService.findById(id_Gcm);
         gcm.getAddress().add(addr);
         gcmService.save(gcm);
         return ResponseEntity.ok().body(addr);
     }
 
-    @DeleteMapping("/delete-address/{id}")
-    public ResponseEntity<String> excluirPorID(@PathVariable Integer id) {
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteById(@PathVariable Integer id) {
         return ResponseEntity.ok().body(addService.deleteById(id));
     }
 
-    //Lista todos ojetos Address
-    @GetMapping("/listall-address")
-    public ResponseEntity<List<Address>> listarTodos(){
+    @GetMapping
+    public ResponseEntity<List<Address>> listAll(){
         return ResponseEntity.ok().body(addService.listAll());
     }
 
-    @GetMapping("/find-address/{id}")
-    public ResponseEntity<Address> buscarPorId(@PathVariable Integer id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<Address> finById(@PathVariable Integer id) {
         return ResponseEntity.ok().body(addService.findById(id));
     }
 }
