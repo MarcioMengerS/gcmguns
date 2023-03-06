@@ -48,4 +48,11 @@ public class AddressController {
     public ResponseEntity<Address> finById(@PathVariable Integer id) {
         return ResponseEntity.ok().body(addService.findById(id));
     }
+
+    //Busca todos os ENDEREÇOS de um GCM específico
+    @GetMapping("/gcm/{number_gcm}")
+    public List<Address> getAddresses(@PathVariable Short number_gcm) {
+        Gcm gcm = gcmService.findByNumber(number_gcm);
+        return gcm.getAddress();
+    }
 }

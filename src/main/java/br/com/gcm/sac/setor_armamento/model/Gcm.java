@@ -64,7 +64,7 @@ public class Gcm {
     @JoinColumn(name = "gcm_id")
     private List<Address> address;
     
-    @OneToOne(cascade = CascadeType.ALL, optional = true)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true , optional = true)
     @JoinColumn(name = "card_id", referencedColumnName = "id")
     private Card card;
 

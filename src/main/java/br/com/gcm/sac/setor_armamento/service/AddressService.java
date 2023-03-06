@@ -23,7 +23,7 @@ public class AddressService {
     public String deleteById(Integer id){
         Address add = addressRepository.findById(id).get();
         addressRepository.deleteById(id);
-        return String.format("%s foi deletado com sucesso", add.getLogradouro());
+        return String.format("%s foi deletado com sucesso", add.getStreet());
     }
 
     public List<Address> listAll(){

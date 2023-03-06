@@ -19,10 +19,10 @@ public class Address implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private Short numero;
-    private String logradouro;
-    private String bairro;
+    private Short number;
+    private String street;
+    private String neighborhood;
     private String cep;
-    private String localidade;
-    private String uf;
+    private String city;
+    private String state;
 }

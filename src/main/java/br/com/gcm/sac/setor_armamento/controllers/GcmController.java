@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.gcm.sac.setor_armamento.model.Address;
 import br.com.gcm.sac.setor_armamento.model.Gcm;
 import br.com.gcm.sac.setor_armamento.repository.GcmRepository;
 import br.com.gcm.sac.setor_armamento.service.GcmService;
@@ -93,12 +92,5 @@ public class GcmController {
     public int calculaTempoServ(@PathVariable Short numero){
         Gcm gm2 = gcmService.findByNumber(numero);
         return gm2.calcularAnosServico(); //model.Gcm
-    }
-
-    //Busca todos os ENDEREÇOS de um GCM específico
-    @GetMapping("/get-add/{numero}")
-    public List<Address> obterEnderecos(@PathVariable Short numero) {
-        Gcm gcm = gcmService.findByNumber(numero);
-        return gcm.getAddress();
     }
 }
