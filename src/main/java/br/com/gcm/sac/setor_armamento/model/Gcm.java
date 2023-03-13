@@ -68,6 +68,10 @@ public class Gcm {
     @JoinColumn(name = "card_id", referencedColumnName = "id")
     private Card card;
 
+    @OneToOne(mappedBy = "gcm")
+    @JoinColumn(name = "handcuff_id")
+    private Handcuff handcuff;
+
     public Integer calcularIdade(){
         LocalDate nascimento = LocalDate.of(this.dataNas.getYear(), this.dataNas.getMonth(), this.dataNas.getDayOfMonth());
         final LocalDate dataAtual = LocalDate.now();

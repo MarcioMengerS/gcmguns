@@ -1,6 +1,4 @@
 package br.com.gcm.sac.setor_armamento.controllers;
-
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
@@ -17,10 +15,13 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpStatus;
+import br.com.gcm.sac.setor_armamento.model.dto.GcmDTO;
 import br.com.gcm.sac.setor_armamento.model.Gcm;
-import br.com.gcm.sac.setor_armamento.repository.GcmRepository;
+import br.com.gcm.sac.setor_armamento.model.Handcuff;
 import br.com.gcm.sac.setor_armamento.service.GcmService;
+import br.com.gcm.sac.setor_armamento.service.HandcuffService;
 
 @RestController
 @RequestMapping("/gcm")
@@ -28,25 +29,29 @@ public class GcmController {
 
     @Autowired
     GcmService gcmService;
+ 
     @Autowired
-    GcmRepository gcmRepository;
+    HandcuffService handcuffService;
     
     //cria objeto GCM no BD
     @PostMapping
-    public ResponseEntity<Gcm> save(@RequestBody @Valid Gcm gcm) throws URISyntaxException {
-        URI location = new URI("/sac");
-        //Se objeto existir no banco retorna o objeto senão salva
-        if(null == gcmService.findByNumber(gcm.getNumero())){
-            return ResponseEntity.created(location).body(gcmService.save(gcm));
+    public ResponseEntity<GcmDTO> save(@RequestBody @Valid Gcm gcm) throws URISyntaxException {
+        GcmDTO gcmDto = new GcmDTO();
+        Gcm gcm2 = gcmService.findByNumber(gcm.getNumero());
+        //Se objeto não existir no BD salva
+        if(null == gcm2){
+            BeanUtils.copyProperties(gcmService.save(gcm), gcmDto);
+            return  ResponseEntity.status(HttpStatus.CREATED).body(gcmDto);
         }else{
-            return ResponseEntity.ok().body(gcmService.findByNumber(gcm.getNumero()));
+            BeanUtils.copyProperties(gcm2, gcmDto);
+            return ResponseEntity.status(HttpStatus.FOUND).body(gcmDto);
         }
     }
 
     //Lista todos ojetos GCMs do BD
     @GetMapping
-    public ResponseEntity<List<Gcm>> listarTodos(){
-        return ResponseEntity.ok().body(gcmService.listAll());
+    public ResponseEntity<List<GcmDTO>> listAll(){
+        return ResponseEntity.ok().body(GcmDTO.convertList(gcmService.listAll()));
     }
 
     //Exclui Objeto do BD
@@ -93,4 +98,32 @@ public class GcmController {
         Gcm gm2 = gcmService.findByNumber(numero);
         return gm2.calcularAnosServico(); //model.Gcm
     }
+
+    ///////////////////////////teste///////////////////////
+    @PostMapping("/{num_gcm}/handcuff/{id_hc}")
+    public void saveHandcuffGcm(@PathVariable Integer id_hc, @PathVariable Short num_gcm){
+        Handcuff handcuff = new Handcuff();
+        handcuff = handcuffService.findById(id_hc);
+
+        Gcm gcm = new Gcm();
+        gcm = gcmService.findByNumber(num_gcm);
+        
+        gcm.setHandcuff(handcuff);
+        handcuff.setGcm(gcm);
+
+        gcmService.save(gcm);
+    }
+
+    @GetMapping("/handcuff/{id_gcm}")
+    public Handcuff findHandcuffOfGcm(@PathVariable Integer id_gcm){
+        Handcuff hc = new Handcuff();
+        hc = gcmService.findById(id_gcm).getHandcuff();
+        Handcuff hcDto = new Handcuff();
+        hcDto.setBrand(hc.getBrand());
+        hcDto.setId(hc.getId());
+        hcDto.setNumber(hc.getNumber());
+        return hcDto;
+
+    }
+
 }
