@@ -22,12 +22,10 @@ public class Handcuff {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="id")
     private Integer id;
-
     private Integer number;
-
     private String brand;
 
-    // Atributo do tipo Gcm com o mapeamento bidirecional
+    //Atributo do tipo Gcm com o mapeamento bidirecional
     @OneToOne
     @JoinColumn(name = "gcm_id")
     private Gcm gcm;

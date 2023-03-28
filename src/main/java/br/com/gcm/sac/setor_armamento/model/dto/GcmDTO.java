@@ -14,20 +14,20 @@ import lombok.NoArgsConstructor;
 public class GcmDTO {
 
     private Integer id;
-    private String name;
-    private Short number;
+    private String nome;
+    private Short numero;
     private String cpf;
-    private LocalDate birthDate;
-    private LocalDate admissionDate;
+    private LocalDate dataNas;
+    private LocalDate dataAdmis;
     private String email;
 
     public GcmDTO(Gcm gcm){
         this.id = gcm.getId();
-        this.name = gcm.getNome();
-        this.number = gcm.getNumero();
+        this.nome = gcm.getNome();
+        this.numero = gcm.getNumero();
         this.cpf = gcm.getCpf();
-        this.birthDate = gcm.getDataNas();
-        this.admissionDate = gcm.getDataAdmis();
+        this.dataNas = gcm.getDataNas();
+        this.dataAdmis = gcm.getDataAdmis();
         this.email = gcm.getEmail();
     }
     //Método static pertence a classe e não ao objeto instanciado ex. GcmDTO.convertList(List gcm)

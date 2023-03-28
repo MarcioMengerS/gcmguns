@@ -1,7 +1,6 @@
 package br.com.gcm.sac.setor_armamento.controllers;
 import java.net.URISyntaxException;
 import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import br.com.gcm.sac.setor_armamento.model.dto.GcmDTO;
+import br.com.gcm.sac.setor_armamento.model.dto.HandcuffDTO;
 import br.com.gcm.sac.setor_armamento.model.Gcm;
 import br.com.gcm.sac.setor_armamento.model.Handcuff;
 import br.com.gcm.sac.setor_armamento.service.GcmService;
@@ -54,35 +54,47 @@ public class GcmController {
         return ResponseEntity.ok().body(GcmDTO.convertList(gcmService.listAll()));
     }
 
-    //Exclui Objeto do BD
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> excluirPorID(@PathVariable Integer id) {
-        return ResponseEntity.ok().body(gcmService.deleteById(id));
+    //Pesquisa no BD objeto GCM por ID
+    @GetMapping("/{id}") //localhost:8080/1
+    public ResponseEntity<GcmDTO> findById(@PathVariable Integer id) {
+        GcmDTO gcmDto = new GcmDTO();
+        Gcm gcm = new Gcm();
+        gcm = gcmService.findById(id);
+        BeanUtils.copyProperties(gcm, gcmDto);
+        return ResponseEntity.ok().body(gcmDto);
     }
 
     //Modifica dados do objeto GCM cadastrado no BD
     @PutMapping("/{id}")
-    public ResponseEntity<Gcm> updateById(@RequestBody Gcm gcm, @PathVariable Integer id){
-        return ResponseEntity.ok().body(gcmService.update(gcm, id));
+    public ResponseEntity<GcmDTO> updateById(@RequestBody Gcm gcm, @PathVariable Integer id){
+        GcmDTO gcmDto = new GcmDTO();
+        Gcm gcm2 = new Gcm();
+        gcm2 = gcmService.update(gcm, id);
+        BeanUtils.copyProperties(gcm2, gcmDto);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(gcmDto);
     }
 
-    //Pesquisa no BD objeto GCM por ID
-    @GetMapping("/{id}") //localhost:8080/find/10
-    public ResponseEntity<Gcm> buscarPorId(@PathVariable Integer id) {
-        return ResponseEntity.ok().body(gcmService.findById(id));
+    //Exclui Objeto do BD
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteById(@PathVariable Integer id) {
+        return ResponseEntity.ok().body(gcmService.deleteById(id));
     }
 
 //########################## Métodos de Busca Avançados ###################################
     //Pesquisa por parte do nome do GCM
     @GetMapping("/name")//localhost:8080/name?nome=menger
-    public List<Gcm> buscarPorParteNome(@RequestParam("nome") String nome) {
-        return gcmService.findByNameContaining(nome);
+    public ResponseEntity<List<GcmDTO>> findByNameContaining(@RequestParam("nome") String nome){
+        return ResponseEntity.ok().body(GcmDTO.convertList(gcmService.findByNameContaining(nome)));
     }
 
     //Pesquisa GCMs por numero
-    @GetMapping("/num/{numero}")//localhost:8080/717
-    public Gcm buscarGcmPorNum(@PathVariable Short numero){
-        return gcmService.findByNumber(numero);
+    @GetMapping("/num/{number}")//localhost:8080/717
+    public ResponseEntity<GcmDTO> getGcmByNumber(@PathVariable Short number){
+        GcmDTO gcmDto = new GcmDTO();
+        Gcm gcm = new Gcm();
+        gcm = gcmService.findByNumber(number);
+        BeanUtils.copyProperties(gcm, gcmDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(gcmDto);
     }
     
     //Calcula idade do GCM
@@ -113,17 +125,13 @@ public class GcmController {
 
         gcmService.save(gcm);
     }
-
+    //retorna qual algema está em posse do GCM.
     @GetMapping("/handcuff/{id_gcm}")
-    public Handcuff findHandcuffOfGcm(@PathVariable Integer id_gcm){
+    public HandcuffDTO findHandcuffOfGcm(@PathVariable Integer id_gcm){
         Handcuff hc = new Handcuff();
+        HandcuffDTO hcDto = new HandcuffDTO();
         hc = gcmService.findById(id_gcm).getHandcuff();
-        Handcuff hcDto = new Handcuff();
-        hcDto.setBrand(hc.getBrand());
-        hcDto.setId(hc.getId());
-        hcDto.setNumber(hc.getNumber());
+        BeanUtils.copyProperties(hc, hcDto);
         return hcDto;
-
     }
-
 }
