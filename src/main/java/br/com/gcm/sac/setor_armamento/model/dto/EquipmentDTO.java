@@ -2,7 +2,7 @@ package br.com.gcm.sac.setor_armamento.model.dto;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import br.com.gcm.sac.setor_armamento.model.Handcuff;
+import br.com.gcm.sac.setor_armamento.model.Equipment;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,20 +10,20 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class HandcuffDTO {
+public class EquipmentDTO {
     
     private Integer id;
     private Integer number;
     private String brand;
 
-    public HandcuffDTO(Handcuff hc){
-        this.id = hc.getId();
-        this.number = hc.getNumber();
-        this.brand = hc.getBrand();
+    public EquipmentDTO(Equipment eq){
+        this.id = eq.getId();
+        this.number = eq.getNumber();
+        this.brand = eq.getBrand();
     }
 
     //Método static pertence a classe e não ao objeto instanciado ex. HandcuffDTO.convertList(List hc)
-    public static List<HandcuffDTO> convertList(List<Handcuff> hcs){
-        return hcs.stream().map(HandcuffDTO::new).collect(Collectors.toList());
+    public static List<EquipmentDTO> convertList(List<Equipment> eqs){
+        return eqs.stream().map(EquipmentDTO::new).collect(Collectors.toList());
     }
 }

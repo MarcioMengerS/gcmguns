@@ -29,7 +29,7 @@ public class AddressController {
     @PostMapping("/{id_Gcm}")
     public ResponseEntity<Address> save(@RequestBody Address addr, @PathVariable Integer id_Gcm){
         Gcm gcm = gcmService.findById(id_Gcm);
-        gcm.getAddress().add(addr);
+        gcm.setAddress(addService.save(addr));
         gcmService.save(gcm);
         return ResponseEntity.ok().body(addr);
     }
@@ -49,10 +49,12 @@ public class AddressController {
         return ResponseEntity.ok().body(addService.findById(id));
     }
 
-    //Busca todos os ENDEREÇOS de um GCM específico
-    @GetMapping("/gcm/{number_gcm}")
-    public List<Address> getAddresses(@PathVariable Short number_gcm) {
-        Gcm gcm = gcmService.findByNumber(number_gcm);
-        return gcm.getAddress();
+    //Busca ENDEREÇO de um GCM específico
+    @GetMapping("/gcm/{id_gcm}")
+    public Address getAddress(@PathVariable Integer id_gcm) {
+        Gcm gcm = gcmService.findById(id_gcm);
+        int id_address = gcm.getAddress().getId();
+        Address address = addService.findById(id_address); 
+        return address;
     }
 }

@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.gcm.sac.setor_armamento.model.dto.HandcuffDTO;
-import br.com.gcm.sac.setor_armamento.model.Handcuff;
-import br.com.gcm.sac.setor_armamento.service.HandcuffService;
+import br.com.gcm.sac.setor_armamento.model.dto.EquipmentDTO;
+import br.com.gcm.sac.setor_armamento.model.Equipment;
+import br.com.gcm.sac.setor_armamento.service.EquipmentService;
 import br.com.gcm.sac.setor_armamento.service.GcmService;
 import br.com.gcm.sac.setor_armamento.model.dto.GcmDTO;
 import br.com.gcm.sac.setor_armamento.model.Gcm;
@@ -24,46 +24,46 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
-@RequestMapping("/handcuff")
-public class HandcuffController {
+@RequestMapping("/equipment")
+public class EquipmentController {
 
     @Autowired
     GcmService gcmService;
 
     @Autowired
-    HandcuffService handcuffService;
+    EquipmentService equipmentService;
 
     @PostMapping
-    public ResponseEntity<HandcuffDTO> save(@RequestBody @Valid Handcuff hc) throws URISyntaxException {
-        HandcuffDTO hcDto = new HandcuffDTO();
-        BeanUtils.copyProperties(handcuffService.save(hc), hcDto);
+    public ResponseEntity<EquipmentDTO> save(@RequestBody @Valid Equipment hc) throws URISyntaxException {
+        EquipmentDTO hcDto = new EquipmentDTO();
+        BeanUtils.copyProperties(equipmentService.save(hc), hcDto);
         return  ResponseEntity.status(HttpStatus.CREATED).body(hcDto);
     }
 
     @GetMapping
-    public ResponseEntity<List<HandcuffDTO>> listAll(){
-        return ResponseEntity.ok().body(HandcuffDTO.convertList(handcuffService.listAll()));
+    public ResponseEntity<List<EquipmentDTO>> listAll(){
+        return ResponseEntity.ok().body(EquipmentDTO.convertList(equipmentService.listAll()));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<HandcuffDTO> findById(@PathVariable Integer id) {
-        HandcuffDTO handcuffDto = new HandcuffDTO();
-        Handcuff handcuff = new Handcuff();
-        handcuff = handcuffService.findById(id);
-        BeanUtils.copyProperties(handcuff, handcuffDto);
-        return ResponseEntity.ok().body(handcuffDto);
+    public ResponseEntity<EquipmentDTO> findById(@PathVariable Integer id) {
+        EquipmentDTO equipmentDto = new EquipmentDTO();
+        Equipment equipment = new Equipment();
+        equipment = equipmentService.findById(id);
+        BeanUtils.copyProperties(equipment, equipmentDto);
+        return ResponseEntity.ok().body(equipmentDto);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteById(@PathVariable Integer id){
-        return ResponseEntity.ok().body(handcuffService.deleteById(id));
+        return ResponseEntity.ok().body(equipmentService.deleteById(id));
     }
 
     @GetMapping("/gcm/{id_hc}")
-    public GcmDTO findGcmOfHandcuff(@PathVariable Integer id_hc) {
+    public GcmDTO findGcmOfEquipment(@PathVariable Integer id_hc) {
         Gcm gcm = new Gcm();
         GcmDTO gcmDto = new GcmDTO();
-        gcm = handcuffService.findById(id_hc).getGcm();
+        gcm = equipmentService.findById(id_hc).getGcm();
         
         BeanUtils.copyProperties(gcm, gcmDto);
         return gcmDto;

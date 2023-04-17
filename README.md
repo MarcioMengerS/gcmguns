@@ -1,9 +1,9 @@
-# Gerenciamento de Materiais GCM:
+# Sistema para Gerenciamento de Materiais GCM:
 ## Implementado pacote *repository*
-### Classe GcmRepository
+### Classe GcmRepository responsável por fazer a conexão com o banco de dados
 #### Atributos / Métodos:
-findByNumero;
-findByNomeContaining;
+* findByNumero;
+* findByNomeContaining;
 
 ## Implementado pacote *service*
 ### Classe GcmService
@@ -37,18 +37,47 @@ findByNomeContaining;
 
 ## Implementado pacote *controller*
 ### Classe GcmController
-#### Atributos / Métodos:
-* salvar (localhost:8080/save)
-* listarTodos (localhost:8080/listall)
-* excluirPorId (localhost:8080/delete/{id})
-* alterar (localhost:8080/modify)
-* buscarPorId (localhost:8080/find/{id})
-* buscarPorParteNome (localhost:8080/name)
-* buscarGcmPorNum(localhost:8080/{numero})
-* devolveIdade (localhost:8080/idade/{numero})
-* calcularTempoServ (localhost:8080/temp-serv/{numero})
+#### Método / Rota / Verbo:
+* Create - localhost:8080/gcm - POST
+* FindAll - localhost:8080/gcm - GET
+* Delete - localhost:8080/gcm/{id} - DELETE
+* Update - localhost:8080/gcm/{id} - PUT
+* FindById - localhost:8080/gcm/{id} - GET
+* FindByNameContaining - localhost:8080/gcm/name?nome={parteNome} - GET
+* FindByNumber - localhost:8080/gcm/num/{numero} - GET
+* GetAge - localhost:8080/gcm/age/{numero} - GET
+* GetYearsService - localhost:8080/gcm/temp-serv/{numero} - GET
 
 ## Implementado pacote *Configuration*
 ### Classe CorsConfiguration
 #### Método:
 * addCorsMappings (CorsRegistry registry)
+
+
+28/03/2023
+## MÓDULO openPDF
+### Uilizado para produzir documento denominado cautela (comprovante de entrega e devolução de material) no formato pdf.
+
+https://mvnrepository.com/artifact/com.github.librepdf/openpdf
+
+Adicionado ao arquivo pom.xml o trecho de código abaixo:
+
+```
+  <dependency>
+    <groupId>com.github.librepdf</groupId>
+    <artifactId>openpdf</artifactId>
+    <version>1.3.29</version>
+  </dependency>
+```
+### As seguintes classes foram incorporadas ao projeto:
+
+* PdfGeneratorService.java no pacote service
+    * Conteúdo o documento, como formatação e textos.
+* PdfExportController.java no pacote controllers
+    * Rota para geração de em formato pdf:
+      * GET - localhost:8080/pdf/generate
+
+
+### Modelo de cautela produzido com openPDF devolvido através da rota designada.
+
+![Cautela](/src/main/java/br/com/gcm/sac/setor_armamento/images/modeloCautela.JPG)

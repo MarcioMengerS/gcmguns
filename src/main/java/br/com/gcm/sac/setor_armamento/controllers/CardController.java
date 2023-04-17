@@ -33,7 +33,7 @@ public class CardController {
         //tagService.save(tag);
 
         //Salva Tag no Gcm
-        gcm.setCard(tag);
+        //gcm.setCard(tag);
         gcm = gcmService.save(gcm);
         return null;
     }

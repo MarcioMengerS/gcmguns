@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import br.com.gcm.sac.setor_armamento.model.dto.GcmDTO;
-import br.com.gcm.sac.setor_armamento.model.dto.HandcuffDTO;
+import br.com.gcm.sac.setor_armamento.model.dto.EquipmentDTO;
 import br.com.gcm.sac.setor_armamento.model.Gcm;
-import br.com.gcm.sac.setor_armamento.model.Handcuff;
+import br.com.gcm.sac.setor_armamento.model.Equipment;
 import br.com.gcm.sac.setor_armamento.service.GcmService;
-import br.com.gcm.sac.setor_armamento.service.HandcuffService;
+import br.com.gcm.sac.setor_armamento.service.EquipmentService;
 
 @RestController
 @RequestMapping("/gcm")
@@ -31,7 +31,7 @@ public class GcmController {
     GcmService gcmService;
  
     @Autowired
-    HandcuffService handcuffService;
+    EquipmentService equipmentService;
     
     //cria objeto GCM no BD
     @PostMapping
@@ -112,26 +112,27 @@ public class GcmController {
     }
 
     ///////////////////////////teste///////////////////////
-    @PostMapping("/{num_gcm}/handcuff/{id_hc}")
-    public void saveHandcuffGcm(@PathVariable Integer id_hc, @PathVariable Short num_gcm){
-        Handcuff handcuff = new Handcuff();
-        handcuff = handcuffService.findById(id_hc);
+    //Salva equipamento na carga do guarda
+    @PostMapping("/{num_gcm}/equipment/{id_hc}")
+    public void saveEquipmentGcm(@PathVariable Integer id_hc, @PathVariable Short num_gcm){
+        Equipment equipment = new Equipment();
+        equipment = equipmentService.findById(id_hc);
 
         Gcm gcm = new Gcm();
         gcm = gcmService.findByNumber(num_gcm);
         
-        gcm.setHandcuff(handcuff);
-        handcuff.setGcm(gcm);
+        gcm.setEquipment(equipment);
+        equipment.setGcm(gcm);
 
         gcmService.save(gcm);
     }
-    //retorna qual algema está em posse do GCM.
-    @GetMapping("/handcuff/{id_gcm}")
-    public HandcuffDTO findHandcuffOfGcm(@PathVariable Integer id_gcm){
-        Handcuff hc = new Handcuff();
-        HandcuffDTO hcDto = new HandcuffDTO();
-        hc = gcmService.findById(id_gcm).getHandcuff();
-        BeanUtils.copyProperties(hc, hcDto);
-        return hcDto;
+    //retorna qual equipamento está em posse do GCM.
+    @GetMapping("/equipment/{id_gcm}")
+    public EquipmentDTO findEquipmentOfGcm(@PathVariable Integer id_gcm){
+        Equipment eq = new Equipment();
+        EquipmentDTO eqDto = new EquipmentDTO();
+        eq = gcmService.findById(id_gcm).getEquipment();
+        BeanUtils.copyProperties(eq, eqDto);
+        return eqDto;
     }
 }
