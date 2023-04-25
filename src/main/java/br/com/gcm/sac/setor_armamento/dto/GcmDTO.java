@@ -1,4 +1,4 @@
-package br.com.gcm.sac.setor_armamento.model.dto;
+package br.com.gcm.sac.setor_armamento.dto;
 
 import java.time.LocalDate;
 import java.util.List;

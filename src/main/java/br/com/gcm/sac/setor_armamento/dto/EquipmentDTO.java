@@ -1,4 +1,4 @@
-package br.com.gcm.sac.setor_armamento.model.dto;
+package br.com.gcm.sac.setor_armamento.dto;
 
 import java.util.List;
 import java.util.stream.Collectors;

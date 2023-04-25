@@ -16,9 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
-import br.com.gcm.sac.setor_armamento.model.dto.GcmDTO;
-import br.com.gcm.sac.setor_armamento.model.dto.EquipmentDTO;
+
 import br.com.gcm.sac.setor_armamento.model.Gcm;
+import br.com.gcm.sac.setor_armamento.dto.EquipmentDTO;
+import br.com.gcm.sac.setor_armamento.dto.GcmDTO;
 import br.com.gcm.sac.setor_armamento.model.Equipment;
 import br.com.gcm.sac.setor_armamento.service.GcmService;
 import br.com.gcm.sac.setor_armamento.service.EquipmentService;
