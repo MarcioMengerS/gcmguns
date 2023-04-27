@@ -116,23 +116,23 @@ public class GcmController {
     //Salva equipamento na carga do guarda
     @PostMapping("/{num_gcm}/equipment/{id_hc}")
     public void saveEquipmentGcm(@PathVariable Integer id_hc, @PathVariable Short num_gcm){
-        Equipment equipment = new Equipment();
-        equipment = equipmentService.findById(id_hc);
+        // Equipment equipment = new Equipment();
+        // equipment = equipmentService.findById(id_hc);
 
-        Gcm gcm = new Gcm();
-        gcm = gcmService.findByNumber(num_gcm);
+        // Gcm gcm = new Gcm();
+        // gcm = gcmService.findByNumber(num_gcm);
         
-        gcm.setEquipment(equipment);
-        equipment.setGcm(gcm);
+        // gcm.setEquipment(equipment);
+        // equipment.setGcm(gcm);
 
-        gcmService.save(gcm);
+        // gcmService.save(gcm);
     }
     //retorna qual equipamento está em posse do GCM.
     @GetMapping("/equipment/{id_gcm}")
     public EquipmentDTO findEquipmentOfGcm(@PathVariable Integer id_gcm){
         Equipment eq = new Equipment();
         EquipmentDTO eqDto = new EquipmentDTO();
-        eq = gcmService.findById(id_gcm).getEquipment();
+        //eq = gcmService.findById(id_gcm).getEquipment();
         BeanUtils.copyProperties(eq, eqDto);
         return eqDto;
     }

@@ -2,13 +2,14 @@ package br.com.gcm.sac.setor_armamento.model;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
@@ -66,9 +67,8 @@ public class Gcm {
     // @JoinColumn(name = "card_id", referencedColumnName = "id")
     // private Card card;
 
-    @OneToOne(mappedBy = "gcm")
-    @JoinColumn(name = "equipment_id")
-    private Equipment equipment;
+    @OneToMany(mappedBy = "gcm", cascade = CascadeType.ALL)
+    private List<Loan> loan;
 
     public Integer calcularIdade(){
         LocalDate nascimento = LocalDate.of(this.dataNas.getYear(), this.dataNas.getMonth(), this.dataNas.getDayOfMonth());

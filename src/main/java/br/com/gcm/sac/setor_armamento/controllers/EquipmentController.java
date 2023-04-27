@@ -63,7 +63,7 @@ public class EquipmentController {
     public GcmDTO findGcmOfEquipment(@PathVariable Integer id_hc) {
         Gcm gcm = new Gcm();
         GcmDTO gcmDto = new GcmDTO();
-        gcm = equipmentService.findById(id_hc).getGcm();
+        //gcm = equipmentService.findById(id_hc).getGcm();
         
         BeanUtils.copyProperties(gcm, gcmDto);
         return gcmDto;
