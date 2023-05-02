@@ -14,23 +14,23 @@ import br.com.gcm.sac.setor_armamento.repository.EquipmentRepository;
 public class EquipmentService {
     
     @Autowired
-    private EquipmentRepository handcuffRepository;
+    private EquipmentRepository equipmentRepository;
 
     public Equipment save(Equipment hc){
-        return handcuffRepository.save(hc);
+        return equipmentRepository.save(hc);
     }
 
     public List<Equipment> listAll(){
-        return handcuffRepository.findAll();
+        return equipmentRepository.findAll();
     }   
 
     public Equipment findById(Integer id){
-        return handcuffRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Objeto não encontrado!"));
+        return equipmentRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Objeto não encontrado!"));
     }
 
     public String deleteById(Integer id){
-        Equipment handcuff = handcuffRepository.findById(id).get();
-        handcuffRepository.deleteById(id);
+        Equipment handcuff = equipmentRepository.findById(id).get();
+        equipmentRepository.deleteById(id);
         return String.format("Algema %s de número %s foi excluída com sucesso", handcuff.getBrand(), handcuff.getNumber());
     }
 

@@ -25,7 +25,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -63,10 +62,6 @@ public class Gcm {
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true , optional = true)
     private Address address;
     
-    // @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true , optional = true)
-    // @JoinColumn(name = "card_id", referencedColumnName = "id")
-    // private Card card;
-
     @OneToMany(mappedBy = "gcm", cascade = CascadeType.ALL)
     private List<Loan> loan;
 

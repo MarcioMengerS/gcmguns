@@ -11,11 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.gcm.sac.setor_armamento.dto.EquipmentDTO;
-import br.com.gcm.sac.setor_armamento.dto.GcmDTO;
 import br.com.gcm.sac.setor_armamento.model.Equipment;
 import br.com.gcm.sac.setor_armamento.service.EquipmentService;
 import br.com.gcm.sac.setor_armamento.service.GcmService;
-import br.com.gcm.sac.setor_armamento.model.Gcm;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
@@ -59,13 +57,13 @@ public class EquipmentController {
         return ResponseEntity.ok().body(equipmentService.deleteById(id));
     }
 
-    @GetMapping("/gcm/{id_hc}")
-    public GcmDTO findGcmOfEquipment(@PathVariable Integer id_hc) {
-        Gcm gcm = new Gcm();
-        GcmDTO gcmDto = new GcmDTO();
-        //gcm = equipmentService.findById(id_hc).getGcm();
+    // @GetMapping("/gcm/{id_hc}")
+    // public GcmDTO findGcmOfEquipment(@PathVariable Integer id_hc) {
+    //     Gcm gcm = new Gcm();
+    //     GcmDTO gcmDto = new GcmDTO();
+    //     gcm = equipmentService.findById(id_hc).getGcm();
         
-        BeanUtils.copyProperties(gcm, gcmDto);
-        return gcmDto;
-    }
+    //     BeanUtils.copyProperties(gcm, gcmDto);
+    //     return gcmDto;
+    // }
 }
