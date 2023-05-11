@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import br.com.gcm.sac.setor_armamento.enuns.NameEnum;
 import br.com.gcm.sac.setor_armamento.model.Equipment;
 import br.com.gcm.sac.setor_armamento.repository.EquipmentRepository;
 
@@ -22,7 +23,11 @@ public class EquipmentService {
 
     public List<Equipment> listAll(){
         return equipmentRepository.findAll();
-    }   
+    }
+
+    public List<Equipment> listByCategory(NameEnum name){
+        return equipmentRepository.findByCategory(name);
+    } 
 
     public Equipment findById(Integer id){
         return equipmentRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Objeto não encontrado!"));

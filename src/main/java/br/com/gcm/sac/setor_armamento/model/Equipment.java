@@ -28,8 +28,8 @@ public class Equipment {
     @Column(name="id")
     private Integer id;
     @Enumerated(value = EnumType.STRING)
-    private NameEnum name;
-    private String calibre;
+    private NameEnum category;
+    private String calibre;//caliber
     private Integer number;
     private String brand;
 

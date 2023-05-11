@@ -3,7 +3,6 @@ package br.com.gcm.sac.setor_armamento.controllers;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,7 +34,7 @@ public class LoanController {
 
     LocalDateTime agora = LocalDateTime.now();
 
-    LoanDTO loanDto = new LoanDTO();
+
 
     //Salva EQUIPAMENTO na carga do GUARDA
     @PostMapping("/{num_gcm}/{id_eq}")
@@ -51,9 +50,9 @@ public class LoanController {
         emp.setGcm(gcm);
         emp.setRemoval(agora);
 
-        BeanUtils.copyProperties(loanService.save(emp), loanDto);
-        // List<Loan> list_emprestimo = new ArrayList<>();
-        // list_emprestimo.add(emp);
+        loanService.save(emp);
+
+        LoanDTO loanDto = new LoanDTO(emp);
 
         return loanDto;
     }
