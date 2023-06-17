@@ -23,7 +23,7 @@ public class GcmDTO {
     private LocalDate dataAdmis;
     private String email;
     private Address address;
-    //private String tag;
+    private String tag;
 
     public GcmDTO(Gcm gcm){
         this.id = gcm.getId();
@@ -34,7 +34,7 @@ public class GcmDTO {
         this.dataAdmis = gcm.getDataAdmis();
         this.email = gcm.getEmail();
         this.address = gcm.getAddress();
-        //this.tag = gcm.getTag();
+        this.tag = gcm.getTag();
     }
     //Método static pertence a classe e não ao objeto instanciado ex. GcmDTO.convertList(List gcm)
     public static List<GcmDTO> convertList(List<Gcm> gcms){

@@ -55,6 +55,8 @@ public class EquipmentController {
         Equipment equipment = new Equipment();
         equipment = equipmentService.findById(id);
         BeanUtils.copyProperties(equipment, equipmentDto);
+        System.out.println(equipmentDto);
+ 
         return ResponseEntity.ok().body(equipmentDto);
     }
 

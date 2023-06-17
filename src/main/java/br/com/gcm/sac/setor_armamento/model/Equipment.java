@@ -32,6 +32,7 @@ public class Equipment {
     private String calibre;//caliber
     private Integer number;
     private String brand;
+    private Boolean loanEqu = false; //equipamento emprestado == true
 
     //Atributo do tipo Empréstimo(loan) com o mapeamento bidirecional
     @OneToMany(mappedBy = "equipment", cascade = CascadeType.ALL)

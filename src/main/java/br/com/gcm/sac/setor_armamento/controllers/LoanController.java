@@ -34,14 +34,13 @@ public class LoanController {
 
     LocalDateTime agora = LocalDateTime.now();
 
-
-
-    //Salva EQUIPAMENTO na carga do GUARDA
+    //Empresta EQUIPAMENTO para o GCM
     @PostMapping("/{num_gcm}/{id_eq}")
     public LoanDTO emprestaEquipmentGcm(@PathVariable Integer id_eq, @PathVariable Short num_gcm){
         Equipment equipment = new Equipment();
         equipment = equipmentService.findById(id_eq);
-
+        equipment.setLoanEqu(true);
+        
         Gcm gcm = new Gcm();
         gcm = gcmService.findByNumber(num_gcm);
         
@@ -51,8 +50,8 @@ public class LoanController {
         emp.setRemoval(agora);
 
         loanService.save(emp);
-
         LoanDTO loanDto = new LoanDTO(emp);
+
 
         return loanDto;
     }

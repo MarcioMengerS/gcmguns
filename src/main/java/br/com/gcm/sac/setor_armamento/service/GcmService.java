@@ -46,6 +46,7 @@ public class GcmService {
         gcm.setDataNas(g.getDataNas());
         gcm.setDataAdmis(g.getDataAdmis());
         gcm.setEmail(g.getEmail());
+        gcm.setTag(g.getTag());
         return gcmRepository.save(gcm);
     }
 
