@@ -1,6 +1,6 @@
 package br.com.gcm.sac.setor_armamento.model;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,8 +22,8 @@ public class Loan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private LocalDateTime devolution; //devolução
-    private LocalDateTime removal; //empréstimo
+    private ZonedDateTime devolution; //devolução
+    private ZonedDateTime removal; //empréstimo
 
     @ManyToOne
     @JoinColumn(name = "gcm_id")

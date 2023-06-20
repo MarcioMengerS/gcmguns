@@ -1,6 +1,7 @@
 package br.com.gcm.sac.setor_armamento.controllers;
 
-import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,14 +33,12 @@ public class LoanController {
     @Autowired
     LoanService loanService;
 
-    LocalDateTime agora = LocalDateTime.now();
-
     //Empresta EQUIPAMENTO para o GCM
     @PostMapping("/{num_gcm}/{id_eq}")
     public LoanDTO emprestaEquipmentGcm(@PathVariable Integer id_eq, @PathVariable Short num_gcm){
         Equipment equipment = new Equipment();
         equipment = equipmentService.findById(id_eq);
-        equipment.setLoanEqu(true);
+        equipment.setAvailable(false);
         
         Gcm gcm = new Gcm();
         gcm = gcmService.findByNumber(num_gcm);
@@ -47,11 +46,13 @@ public class LoanController {
         Loan emp = new Loan();
         emp.setEquipment(equipment);
         emp.setGcm(gcm);
-        emp.setRemoval(agora);
+        //Instancia objeto com data e hora
+        ZonedDateTime dataHoraZonaAgora = ZonedDateTime.now(ZoneId.of("America/Sao_Paulo"));
+
+        emp.setRemoval(dataHoraZonaAgora);
 
         loanService.save(emp);
         LoanDTO loanDto = new LoanDTO(emp);
-
 
         return loanDto;
     }

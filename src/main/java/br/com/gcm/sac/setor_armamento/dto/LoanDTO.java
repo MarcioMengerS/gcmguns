@@ -1,6 +1,5 @@
 package br.com.gcm.sac.setor_armamento.dto;
-
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,8 +14,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class LoanDTO {
     private Integer id;
-    private LocalDateTime devolution;
-    private LocalDateTime removal;
+    private ZonedDateTime devolution;
+    private ZonedDateTime removal;
     private String name_gcm;
     private NameEnum equipment_category;
 

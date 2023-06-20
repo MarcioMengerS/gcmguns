@@ -18,14 +18,14 @@ public class EquipmentDTO {
     private Integer number;
     private String brand;
     private NameEnum category;
-    private Boolean loan_equip;
+    private Boolean available;
 
     public EquipmentDTO(Equipment eq){
         this.id = eq.getId();
         this.number = eq.getNumber();
         this.brand = eq.getBrand();
         this.category = eq.getCategory();
-        this.loan_equip = eq.getLoanEqu();
+        this.available = eq.getAvailable();
     }
 
     //Método static pertence a classe e não ao objeto instanciado ex. HandcuffDTO.convertList(List hc)
