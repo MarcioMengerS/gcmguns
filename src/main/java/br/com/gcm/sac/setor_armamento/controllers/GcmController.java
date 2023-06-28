@@ -103,4 +103,9 @@ public class GcmController {
     public Boolean searchGcmTag(@PathVariable Short numberGcm, @PathVariable String tag){
         return gcmService.searchGcmTag(numberGcm, tag);
     }
+
+    @GetMapping("/total")
+    public Long totalGcm(){
+        return gcmService.totalGcm();
+    }
 }

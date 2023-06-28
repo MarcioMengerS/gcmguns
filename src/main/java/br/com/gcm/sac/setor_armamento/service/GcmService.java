@@ -76,4 +76,8 @@ public class GcmService {
             return false;
         }
     }
+    //Quantidade total de Guardas cadastrados no sistema
+    public Long totalGcm() {
+        return gcmRepository.count();
+    }
 }
