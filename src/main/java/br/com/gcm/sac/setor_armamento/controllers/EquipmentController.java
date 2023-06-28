@@ -65,6 +65,11 @@ public class EquipmentController {
         return ResponseEntity.ok().body(equipmentService.deleteById(id));
     }
 
+    @GetMapping("/total")
+    public Long totalEquip(){
+        return equipmentService.totalEqu();
+    }
+
     // @GetMapping("/gcm/{id_hc}")
     // public GcmDTO findGcmOfEquipment(@PathVariable Integer id_hc) {
     //     Gcm gcm = new Gcm();

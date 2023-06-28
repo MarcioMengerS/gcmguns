@@ -40,4 +40,7 @@ public class EquipmentService {
         return String.format("Algema %s de número %s foi excluída com sucesso", handcuff.getBrand(), handcuff.getNumber());
     }
 
+    public Long totalEqu() {
+        return equipmentRepository.count();
+    }
 }
