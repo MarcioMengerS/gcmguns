@@ -97,18 +97,10 @@ public class GcmController {
         BeanUtils.copyProperties(gcm, gcmDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(gcmDto);
     }
-    
-    //Calcula idade do GCM
-    @GetMapping("/idade/{numero}")
-    public Integer devolveIdade(@PathVariable Short numero){
-        Gcm gm = gcmService.findByNumber(numero);
-        return gm.calcularIdade(); //model.Gcm
-    }
 
-    //calcula tempo de serviço em anos
-    @GetMapping("/tempo-serv/{numero}")
-    public int calculaTempoServ(@PathVariable Short numero){
-        Gcm gm2 = gcmService.findByNumber(numero);
-        return gm2.calcularAnosServico(); //model.Gcm
+    //Método que identifica cartão RFID e compara com tag cadastrada do GCM (true == tag, false != tag)
+    @GetMapping("/search-tag/{numberGcm}/{tag}")
+    public Boolean searchGcmTag(@PathVariable Short numberGcm, @PathVariable String tag){
+        return gcmService.searchGcmTag(numberGcm, tag);
     }
 }

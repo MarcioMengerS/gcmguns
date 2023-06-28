@@ -66,4 +66,14 @@ public class GcmService {
     public Gcm findByNumber(Short numero) {
         return gcmRepository.findByNumero(numero);
     }
+
+    public Boolean searchGcmTag(Short numberGcm, String tag){
+        Gcm gm = gcmRepository.findByNumero(numberGcm);
+        String tagGcm = gm.getTag();
+        if(tagGcm.equalsIgnoreCase(tag)){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

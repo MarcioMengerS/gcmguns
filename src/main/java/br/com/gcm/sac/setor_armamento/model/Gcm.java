@@ -1,7 +1,6 @@
 package br.com.gcm.sac.setor_armamento.model;
 
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -64,18 +63,4 @@ public class Gcm {
     
     @OneToMany(mappedBy = "gcm", cascade = CascadeType.ALL)
     private List<Loan> loan;
-
-    public Integer calcularIdade(){
-        LocalDate nascimento = LocalDate.of(this.dataNas.getYear(), this.dataNas.getMonth(), this.dataNas.getDayOfMonth());
-        final LocalDate dataAtual = LocalDate.now();
-        Period periodo = Period.between(nascimento, dataAtual);
-        return periodo.getYears();
-    }
-
-    public int calcularAnosServico() {
-        LocalDate dAdmissao = LocalDate.of(this.dataAdmis.getYear(), this.dataAdmis.getMonth(), this.dataAdmis.getDayOfMonth());
-        final LocalDate dataAtual = LocalDate.now();
-        Period tempo = Period.between(dAdmissao, dataAtual);
-        return tempo.getYears();
-    }
 }
