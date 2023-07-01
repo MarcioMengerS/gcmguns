@@ -47,6 +47,7 @@ public class GcmService {
         gcm.setDataAdmis(g.getDataAdmis());
         gcm.setEmail(g.getEmail());
         gcm.setTag(g.getTag());
+        gcm.setTransactionPassword(g.getTransactionPassword());
         return gcmRepository.save(gcm);
     }
 

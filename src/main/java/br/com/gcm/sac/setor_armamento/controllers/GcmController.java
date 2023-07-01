@@ -56,7 +56,7 @@ public class GcmController {
     }
 
     //Pesquisa no BD objeto GCM por ID
-    @GetMapping("/{id}") //localhost:8080/1
+    @GetMapping("/{id}") //localhost:8080/gcm/1
     public ResponseEntity<GcmDTO> findById(@PathVariable Integer id) {
         GcmDTO gcmDto = new GcmDTO();
         Gcm gcm = new Gcm();

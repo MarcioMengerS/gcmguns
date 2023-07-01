@@ -58,6 +58,8 @@ public class Gcm {
 
     private String tag;
 
+    private String transactionPassword;
+
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true , optional = true)
     private Address address;
     

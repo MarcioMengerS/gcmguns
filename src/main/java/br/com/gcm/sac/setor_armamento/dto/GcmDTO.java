@@ -24,6 +24,7 @@ public class GcmDTO {
     private String email;
     private Address address;
     private String tag;
+    private String transactionPassword;
 
     public GcmDTO(Gcm gcm){
         this.id = gcm.getId();
@@ -35,6 +36,7 @@ public class GcmDTO {
         this.email = gcm.getEmail();
         this.address = gcm.getAddress();
         this.tag = gcm.getTag();
+        this.transactionPassword = gcm.getTransactionPassword();
     }
     //Método static pertence a classe e não ao objeto instanciado ex. GcmDTO.convertList(List gcm)
     public static List<GcmDTO> convertList(List<Gcm> gcms){
