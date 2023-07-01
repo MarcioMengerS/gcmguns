@@ -12,4 +12,5 @@ public interface EquipmentRepository extends JpaRepository<Equipment, Integer>{
     // @Query(value = "select * from Equipment where loanEqu = false", nativeQuery = true)
     List<Equipment> findByCategoryAndAvailable(NameEnum categoria, Boolean boolean1);
     // List<Equipment> findByLoanEqu(Boolean loanEqu);
+    List<Equipment> findByCategory(NameEnum category);
 }

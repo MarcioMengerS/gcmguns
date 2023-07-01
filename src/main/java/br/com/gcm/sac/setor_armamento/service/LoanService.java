@@ -13,12 +13,16 @@ public class LoanService {
  
     @Autowired
     private LoanRepository loanRepository;
-
+    
     public Loan save(Loan loan){
         return loanRepository.save(loan);
     }
 
     public List<Loan> listAll(){
         return loanRepository.findAll();
+    }
+    //Busca todos os equipamento de um GCM
+    public List<Loan> findByGcmId(Integer num){
+        return loanRepository.findByGcmId(num);
     }
 }

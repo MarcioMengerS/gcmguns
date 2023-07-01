@@ -16,14 +16,18 @@ public class LoanDTO {
     private Integer id;
     private ZonedDateTime devolution;
     private ZonedDateTime removal;
+    private Integer id_gcm;   
     private String name_gcm;
+    private Integer id_equipment;
     private NameEnum equipment_category;
 
     public LoanDTO(Loan loan){
         this.id = loan.getId();
         this.devolution = loan.getDevolution();
         this.removal = loan.getRemoval();
+        this.id_gcm = loan.getGcm().getId();
         this.name_gcm = loan.getGcm().getNome();
+        this.id_equipment= loan.getEquipment().getId();
         this.equipment_category = loan.getEquipment().getCategory();
     }
     //Método static pertence a classe e não ao objeto instanciado ex. LoanDTO.convertList(List loan)

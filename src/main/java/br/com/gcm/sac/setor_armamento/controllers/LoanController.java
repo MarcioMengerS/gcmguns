@@ -62,15 +62,16 @@ public class LoanController {
         return ResponseEntity.ok().body(LoanDTO.convertList(loanService.listAll()));
     }
 
-    //Retorna todos equipamentos do GCM.
-   // @GetMapping("/equipment/{id_gcm}")
-    //public EquipmentDTO findEquipmentOfGcm(@PathVariable Integer id_gcm){
+    //Retorna todos equipamentos de um GCM.
+   @GetMapping("/gcm_id/{id_gcm}")
+    public ResponseEntity<List<LoanDTO>> findEquipmentOfGcm(@PathVariable Integer id_gcm){
+        return ResponseEntity.ok().body(LoanDTO.convertList(loanService.findByGcmId(id_gcm)));
         // Equipment eq = new Equipment();
         // EquipmentDTO eqDto = new EquipmentDTO();
         // eq = gcmService.findById(id_gcm).getEquipment();
         // BeanUtils.copyProperties(eq, eqDto);
         // return eqDto;
-    //}
+    }
 
     //Retorna de qual GM é o equipamento
     @GetMapping("/equipment/{numero}")

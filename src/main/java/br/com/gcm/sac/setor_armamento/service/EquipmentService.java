@@ -26,8 +26,9 @@ public class EquipmentService {
     }
 
     public List<Equipment> listByCategory(NameEnum name){
-        Boolean equipDisponivel  = true; //variável para busca somente de equipamentos disponíveis
-        return equipmentRepository.findByCategoryAndAvailable(name, equipDisponivel);
+        // Boolean equipDisponivel  = true; //variável para busca somente de equipamentos disponíveis
+        //return equipmentRepository.findByCategoryAndAvailable(name, equipDisponivel);
+        return equipmentRepository.findByCategory(name);
     } 
 
     public Equipment findById(Integer id){
