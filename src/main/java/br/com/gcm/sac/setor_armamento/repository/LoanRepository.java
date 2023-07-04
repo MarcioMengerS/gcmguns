@@ -6,5 +6,6 @@ import java.util.List;
 
 
 public interface LoanRepository extends JpaRepository<Loan, Integer>{
-    List<Loan> findByGcmId(Integer number);
+    List<Loan> findByGcmId(Integer id_gcm);
+    List<Loan> findByEquipmentId(Integer id_equip);
 }
