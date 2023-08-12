@@ -26,6 +26,7 @@ import br.com.gcm.sac.setor_armamento.service.TokenService;
 import br.com.gcm.sac.setor_armamento.service.UserService;
 
 @RestController
+@RequestMapping("/auth")
 public class UserController {
     @Autowired
     UserService userService;
@@ -44,13 +45,13 @@ public class UserController {
         return ResponseEntity.ok().body(userService.listAll());
     }
 
-    @PostMapping("auth/save")
+    @PostMapping("/save")
     public ResponseEntity<String> save(@RequestBody UserModel user){
         userService.save(user);
         return ResponseEntity.ok("Objeto Salvo");
     }
 
-    @RequestMapping(value="auth/logout", method = RequestMethod.GET)
+    @RequestMapping(value="/logout", method = RequestMethod.GET)
     public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null){    
@@ -61,7 +62,7 @@ public class UserController {
 
     //Autentica usuário no sistema
     @PostMapping("/login")
-    public String login(@RequestBody UserDTO userDTO){
+    public ResponseEntity<String> login(@RequestBody UserDTO userDTO){
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = 
             new UsernamePasswordAuthenticationToken(userDTO.login(),
                     userDTO.password());
@@ -71,6 +72,6 @@ public class UserController {
 
         var usuario = (UserModel) authenticate.getPrincipal();
 
-        return tokenService.gerarToken(usuario);
+        return ResponseEntity.ok(tokenService.gerarToken(usuario));
     }
 }
