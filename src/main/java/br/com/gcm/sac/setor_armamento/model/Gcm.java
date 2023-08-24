@@ -28,7 +28,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Gcm {
+public class Gcm implements Comparable<Gcm>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;//int +-2.147.483.647
@@ -65,4 +65,9 @@ public class Gcm {
     
     @OneToMany(mappedBy = "gcm", cascade = CascadeType.ALL)
     private List<Loan> loan;
+
+    @Override
+    public int compareTo(Gcm o) {
+        return numero.compareTo(o.numero);  
+    }
 }

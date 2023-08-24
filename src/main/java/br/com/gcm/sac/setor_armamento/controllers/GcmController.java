@@ -1,6 +1,6 @@
 package br.com.gcm.sac.setor_armamento.controllers;
 import java.net.URISyntaxException;
-
+import java.util.Collections;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -49,10 +49,12 @@ public class GcmController {
         }
     }
 
-    //Lista todos ojetos GCMs do BD
+    //Lista todos ojetos GCMs de forma ordenada do BD
     @GetMapping
-    public ResponseEntity<List<GcmDTO>> listAll(){
-        return ResponseEntity.ok().body(GcmDTO.convertList(gcmService.listAll()));
+    public ResponseEntity<List<GcmDTO>> listAll2(){
+        List<Gcm> lista_gcm = gcmService.listAll();
+        Collections.sort(lista_gcm);
+        return ResponseEntity.ok().body(GcmDTO.convertList(lista_gcm));
     }
 
     //Pesquisa no BD objeto GCM por ID
