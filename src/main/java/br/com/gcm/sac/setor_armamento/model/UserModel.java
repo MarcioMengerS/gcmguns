@@ -36,8 +36,6 @@ public class UserModel implements UserDetails{
     private String username;
     @Column(nullable = false)
     private String password;
-
-    private String email;
     
     @ManyToMany
     @JoinTable(name = "TB_USERS_ROLES",

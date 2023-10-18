@@ -1,6 +1,7 @@
 package br.com.gcm.sac.setor_armamento.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -17,6 +18,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
 
@@ -62,6 +64,9 @@ public class Gcm implements Comparable<Gcm>{
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true , optional = true)
     private Address address;
+
+    @CreationTimestamp
+    private LocalDateTime createdAt;
     
     @OneToMany(mappedBy = "gcm", cascade = CascadeType.ALL)
     private List<Loan> loan;
