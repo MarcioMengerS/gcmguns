@@ -81,3 +81,6 @@ Adicionado ao arquivo pom.xml o trecho de código abaixo:
 ### Modelo de cautela produzido com openPDF devolvido através da rota designada.
 
 ![Cautela](/src/main/java/br/com/gcm/sac/setor_armamento/images/modeloCautela.JPG)
+
+### Logout JWT token
+Sair do sistema (Logout) só é possivel após expiração do token JWT. Um modo de fazer logout é excluir com javascript no frontend o token recebido.
