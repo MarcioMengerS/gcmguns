@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 
+import br.com.gcm.sac.setor_armamento.Exceptions.TokenInvalidException;
 import br.com.gcm.sac.setor_armamento.model.UserModel;
 
 @Service
@@ -25,8 +27,14 @@ public class TokenService {
     }
 
     public String getSubject(String token) {
-        return JWT.require(Algorithm.HMAC256("secreta"))
-                .withIssuer("Gcm")
-                .build().verify(token).getSubject();
+        try{
+            return JWT.require(Algorithm.HMAC256("secreta"))
+            .withIssuer("Gcm")
+            .build()
+            .verify(token)
+            .getSubject();
+        }catch(JWTVerificationException exception){
+            throw new TokenInvalidException("Token JWT inválido ou expirado ");
+        }
     }
 }

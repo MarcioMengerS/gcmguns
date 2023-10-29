@@ -13,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import br.com.gcm.sac.setor_armamento.Exceptions.TokenInvalidException;
 import br.com.gcm.sac.setor_armamento.repository.UserRepository;
 import br.com.gcm.sac.setor_armamento.service.TokenService;
 
@@ -28,46 +29,27 @@ public class FilterToken extends OncePerRequestFilter{
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String token;
+        try{                                
+            String token;
+            var authorizationHeader = request.getHeader("Authorization");
+            
+            if(authorizationHeader != null){
+                token = authorizationHeader.replace("Bearer ", "");
+                var subject = this.tokenService.getSubject(token);
 
-        var authorizationHeader = request.getHeader("Authorization");
-        
-        if(authorizationHeader != null){
-            token = authorizationHeader.replace("Bearer ", "");
-            var subject = this.tokenService.getSubject(token);
+                var usuario = this.userRepository.findByUsername(subject);
 
-            var usuario = this.userRepository.findByUsername(subject);
+                var authentication = new UsernamePasswordAuthenticationToken(usuario,
+                    null, usuario.getAuthorities());
 
-            var authentication = new UsernamePasswordAuthenticationToken(usuario,
-                null, usuario.getAuthorities());
-
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+            }
+            filterChain.doFilter(request, response);
+            
+        }catch(TokenInvalidException e){
+            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(e.getLocalizedMessage());
         }
-
-        filterChain.doFilter(request, response);
     }
-
-
-    // @Override
-    // protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-    //                                 FilterChain filterChain) throws ServletException, IOException {
-    //     var tokenJWT = retrieveToken(request);
-    //     if(tokenJWT != null){
-    //         var subject = tokenService.getSubject(tokenJWT);
-    //         var usuario = userRepository.findByUsername(subject);
-    //         SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken
-    //                 (usuario, null, usuario.getAuthorities()));
-    //     }
-    //     filterChain.doFilter(request, response);
-    // }
-
-    // private String retrieveToken (HttpServletRequest request) {
-    //     var authorizationHeader = request.getHeader("Authorization");
-    
-    //     if(authorizationHeader != null){
-    //         return authorizationHeader.replace("Bearer ","").strip();
-    //     }
-    //     return null;
-    // }
-
 }
