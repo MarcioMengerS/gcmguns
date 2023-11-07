@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import br.com.gcm.sac.setor_armamento.enuns.NameEnum;
+import br.com.gcm.sac.setor_armamento.enuns.CategoryEnum;
 import br.com.gcm.sac.setor_armamento.model.Equipment;
 import br.com.gcm.sac.setor_armamento.repository.EquipmentRepository;
 
@@ -25,7 +25,7 @@ public class EquipmentService {
         return equipmentRepository.findAll();
     }
 
-    public List<Equipment> listByCategory(NameEnum name){
+    public List<Equipment> listByCategory(CategoryEnum name){
         // Boolean equipDisponivel  = true; //variável para busca somente de equipamentos disponíveis
         //return equipmentRepository.findByCategoryAndAvailable(name, equipDisponivel);
         return equipmentRepository.findByCategory(name);

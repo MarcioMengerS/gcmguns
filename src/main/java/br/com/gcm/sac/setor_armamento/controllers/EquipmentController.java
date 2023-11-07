@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.gcm.sac.setor_armamento.dto.EquipmentDTO;
-import br.com.gcm.sac.setor_armamento.enuns.NameEnum;
+import br.com.gcm.sac.setor_armamento.enuns.CategoryEnum;
 import br.com.gcm.sac.setor_armamento.model.Equipment;
 import br.com.gcm.sac.setor_armamento.service.EquipmentService;
 import br.com.gcm.sac.setor_armamento.service.GcmService;
@@ -45,7 +45,7 @@ public class EquipmentController {
     }
 
     @GetMapping("/category/{name}")
-    public ResponseEntity<List<EquipmentDTO>> listByCategoy(@PathVariable NameEnum name){
+    public ResponseEntity<List<EquipmentDTO>> listByCategoy(@PathVariable CategoryEnum name){
         return ResponseEntity.ok().body(EquipmentDTO.convertList(equipmentService.listByCategory(name)));
     }
 
