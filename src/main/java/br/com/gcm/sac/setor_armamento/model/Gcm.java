@@ -16,10 +16,9 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
 
 import lombok.AllArgsConstructor;
@@ -33,22 +32,20 @@ import lombok.NoArgsConstructor;
 public class Gcm implements Comparable<Gcm>{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;//int +-2.147.483.647
+    private Integer id;//+-2.147.483.647
 
     @NotNull
     @Min(value=1)
-    private Short numero; //short: +32.767 a -32.767
+    private Short numero; //-+32.767
 
     @NotBlank(message = "Nome não pode estar em branco")
-    @Length(max = 50)
-    @Pattern(regexp = "^(?![ ])(?!.*[ ]{2})((?:e|da|do|das|dos|de|d'|D'|la|las|el|los)\\s*?|(?:[A-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð'][^\\s]*\\s*?)(?!.*[ ]$))+$")
+    @Size (min = 12, max = 50) 
+    //@Pattern(regexp = "^(?![ ])(?!.*[ ]{2})((?:e|da|do|das|dos|de|d'|D'|la|las|el|los)\\s*?|(?:[A-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð'][^\\s]*\\s*?)(?!.*[ ]$))+$")
     private String nome;
 
     @CPF
     private String cpf;
 
-    //@DateTimeFormat(pattern = "dd-MM-yyyy")
-    //@JsonFormat(pattern = "dd/MM/yyyy")
     @Past(message = "A data deve estar no passado!")
     private LocalDate dataNas;
 
