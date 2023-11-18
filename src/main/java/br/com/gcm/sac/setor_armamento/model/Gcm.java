@@ -40,7 +40,6 @@ public class Gcm implements Comparable<Gcm>{
 
     @NotBlank(message = "Nome não pode estar em branco")
     @Size (min = 12, max = 50) 
-    //@Pattern(regexp = "^(?![ ])(?!.*[ ]{2})((?:e|da|do|das|dos|de|d'|D'|la|las|el|los)\\s*?|(?:[A-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð'][^\\s]*\\s*?)(?!.*[ ]$))+$")
     private String nome;
 
     @CPF
@@ -52,7 +51,7 @@ public class Gcm implements Comparable<Gcm>{
     @Past(message = "A data deve estar no passado!")
     private LocalDate dataAdmis;
 
-    @Email(regexp = "[\\w-]+@([\\w-]+\\.)+[\\w-]+")
+    @Email(regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
     private String email;
 
     private String tag;
