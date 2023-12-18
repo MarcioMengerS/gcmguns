@@ -51,7 +51,7 @@ public class Equipment {
     private String model; //modelo =arma =colete =espargidor =lanterna =spark
     private String operation; //funcionamento =arma
     private String numberOfPipes; //quantidade de canos =arma
-    private String soulInformation; //informações da alma =arma
+    private String soulInformation; //Tipo de alma =arma
 
     @Enumerated(value = EnumType.STRING)
     private SizeEnum size; //tamanho =colete =espargidor
