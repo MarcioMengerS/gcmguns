@@ -6,5 +6,6 @@ public enum SizeEnum {
     M,
     G,
     GG,
-    EXGG
+    EXGG,
+    VAZIO // opção para representar "vazio" ou nulo
 }
