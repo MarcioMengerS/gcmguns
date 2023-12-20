@@ -16,11 +16,6 @@ public class UserService implements UserDetailsService{
     
     @Autowired
     UserRepository userRepository;
-
-    // public UserModel save(UserModel user) throws NoSuchAlgorithmException{
-    //     user.setPassword(HashMD5.md5(user.getPassword()));
-    //     return userRepository.save(user);
-    // }
     
     public UserModel save(UserModel user){
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
