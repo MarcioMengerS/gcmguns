@@ -13,7 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import br.com.gcm.sac.setor_armamento.Exceptions.TokenInvalidException;
+import br.com.gcm.sac.setor_armamento.exceptions.TokenInvalidException;
 import br.com.gcm.sac.setor_armamento.repository.UserRepository;
 import br.com.gcm.sac.setor_armamento.service.TokenService;
 

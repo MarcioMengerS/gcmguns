@@ -9,7 +9,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 
-import br.com.gcm.sac.setor_armamento.Exceptions.TokenInvalidException;
+import br.com.gcm.sac.setor_armamento.exceptions.TokenInvalidException;
 import br.com.gcm.sac.setor_armamento.model.UserModel;
 
 @Service
