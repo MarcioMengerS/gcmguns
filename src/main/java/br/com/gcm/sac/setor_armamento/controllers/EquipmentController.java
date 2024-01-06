@@ -21,6 +21,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 @RestController
 @RequestMapping("/equipment")
@@ -63,6 +65,15 @@ public class EquipmentController {
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteById(@PathVariable Integer id){
         return ResponseEntity.ok().body(equipmentService.deleteById(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<EquipmentDTO> update(@PathVariable Integer id, @RequestBody Equipment equip) {
+        EquipmentDTO equipDto = new EquipmentDTO();
+        Equipment equip2 = new Equipment();
+        equip2 = equipmentService.update(equip, id);
+        BeanUtils.copyProperties(equip2, equipDto);
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(equipDto);
     }
 
     @GetMapping("/total")
