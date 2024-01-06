@@ -41,6 +41,33 @@ public class EquipmentService {
         return String.format("Algema %s de número %s foi excluída com sucesso", handcuff.getBrand(), handcuff.getNumber());
     }
 
+    public Equipment update(Equipment e, Integer id){
+        Equipment equipment = equipmentRepository.findById(id).get();
+        equipment.setAgent(e.getAgent());
+        equipment.setAssetNumber(e.getAssetNumber());
+        equipment.setAvailable(e.getAvailable());
+        equipment.setBrand(e.getBrand());
+        equipment.setCaliber(e.getCaliber());
+        equipment.setCategory(e.getCategory());
+        equipment.setDistance(e.getDistance());
+        equipment.setExpirationDate(e.getExpirationDate());
+        equipment.setGender(e.getGender());
+        equipment.setInfo(e.getInfo());
+        equipment.setJetSystem(e.getJetSystem());
+        equipment.setLevelOfProtection(e.getLevelOfProtection());
+        equipment.setManufacturingDate(e.getManufacturingDate());
+        equipment.setModel(e.getModel());
+        equipment.setNumber(e.getNumber());
+        equipment.setNumberOfPipes(e.getNumberOfPipes());
+        equipment.setOperation(e.getOperation());
+        equipment.setRegister(e.getRegister());
+        equipment.setSize(e.getSize());
+        equipment.setSoulInformation(e.getSoulInformation());
+        equipment.setSpecie(e.getSpecie());
+        equipment.setWear(e.getWear());
+        return equipmentRepository.save(equipment);
+    }
+
     public Long totalEqu() {
         return equipmentRepository.count();
     }
