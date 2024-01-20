@@ -22,17 +22,16 @@ public class EquipmentDTO {
     
     private Integer id;
     private CategoryEnum category;
+    private Integer assetNumber;
 
     private CaliberEnum caliber;
     private Integer register;
-    private String number;
+    private String serialNumber;
     private String specie;
     private WearEnum wear;
     private String brand;
     private String model;
     private String operation;
-    private String numberOfPipes;
-    private String soulInformation;
 
     private SizeEnum size;
     private LevelProtectionEnum levelOfProtection;
@@ -52,12 +51,28 @@ public class EquipmentDTO {
     public EquipmentDTO(Equipment equip){
         this.id = equip.getId();
         this.category = equip.getCategory();
-
+        this.assetNumber = equip.getAssetNumber();
         this.caliber = equip.getCaliber();
         this.register = equip.getRegister();
-
-        this.number = equip.getNumber();
+        this.serialNumber = equip.getSerialNumber();
+        this.specie = equip.getSpecie();
+        this.wear = equip.getWear();
         this.brand = equip.getBrand();
+        this.model = equip.getModel();
+        this.operation = equip.getOperation();
+
+        this.size = equip.getSize();
+        this.levelOfProtection = equip.getLevelOfProtection();
+        this.gender = equip.getGender();
+
+        this.distance = equip.getDistance();
+        this.jetSystem = equip.getJetSystem();
+        this.agent = equip.getAgent();
+
+        this.info = equip.getInfo();
+
+        this.expirationDate = equip.getExpirationDate();
+        this.manufacturingDate = equip.getManufacturingDate();
 
         this.available = equip.getAvailable();
     }

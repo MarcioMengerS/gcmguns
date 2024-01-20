@@ -38,7 +38,7 @@ public class EquipmentService {
     public String deleteById(Integer id){
         Equipment handcuff = equipmentRepository.findById(id).get();
         equipmentRepository.deleteById(id);
-        return String.format("Algema %s de número %s foi excluída com sucesso", handcuff.getBrand(), handcuff.getNumber());
+        return String.format("Algema %s de número %s foi excluída com sucesso", handcuff.getBrand(), handcuff.getSerialNumber());
     }
 
     public Equipment update(Equipment e, Integer id){
@@ -57,12 +57,10 @@ public class EquipmentService {
         equipment.setLevelOfProtection(e.getLevelOfProtection());
         equipment.setManufacturingDate(e.getManufacturingDate());
         equipment.setModel(e.getModel());
-        equipment.setNumber(e.getNumber());
-        equipment.setNumberOfPipes(e.getNumberOfPipes());
+        equipment.setSerialNumber(e.getSerialNumber());
         equipment.setOperation(e.getOperation());
         equipment.setRegister(e.getRegister());
         equipment.setSize(e.getSize());
-        equipment.setSoulInformation(e.getSoulInformation());
         equipment.setSpecie(e.getSpecie());
         equipment.setWear(e.getWear());
         return equipmentRepository.save(equipment);
