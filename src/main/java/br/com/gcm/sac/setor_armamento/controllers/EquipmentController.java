@@ -53,12 +53,10 @@ public class EquipmentController {
 
     @GetMapping("/{id}")
     public ResponseEntity<EquipmentDTO> findById(@PathVariable Integer id) {
-        EquipmentDTO equipmentDto = new EquipmentDTO();
-        Equipment equipment = new Equipment();
-        equipment = equipmentService.findById(id);
-        BeanUtils.copyProperties(equipment, equipmentDto);
+        Equipment equipment = equipmentService.findById(id);
+        EquipmentDTO equipmentDto = new EquipmentDTO(equipment);
+        //BeanUtils.copyProperties(equipment, equipmentDto);
         System.out.println(equipmentDto);
- 
         return ResponseEntity.ok().body(equipmentDto);
     }
 

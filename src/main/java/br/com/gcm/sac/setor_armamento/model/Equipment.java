@@ -43,15 +43,13 @@ public class Equipment {
     @Enumerated(value = EnumType.STRING)
     private CaliberEnum caliber; //calibre =arma
     private Integer register; //número do registro =arma
-    private String number; //número de série =arma =colete
+    private String serialNumber; //número de série =arma =colete
     private String specie; //espécie =arma
     @Enumerated(value = EnumType.STRING)
     private WearEnum wear; //porte =colete
     private String brand; //marca =arma =colete =espargidor =lanterna =spark
     private String model; //modelo =arma =colete =espargidor =lanterna =spark
     private String operation; //funcionamento =arma
-    private String numberOfPipes; //quantidade de canos =arma
-    private String soulInformation; //Tipo de alma =arma
 
     @Enumerated(value = EnumType.STRING)
     private SizeEnum size; //tamanho =colete =espargidor
