@@ -38,7 +38,7 @@ public class EquipmentController {
     public ResponseEntity<EquipmentDTO> save(@RequestBody @Valid Equipment hc) throws URISyntaxException {
         EquipmentDTO hcDto = new EquipmentDTO();
         BeanUtils.copyProperties(equipmentService.save(hc), hcDto);
-        return  ResponseEntity.status(HttpStatus.CREATED).body(hcDto);
+        return  ResponseEntity.status(HttpStatus.OK).body(hcDto);
     }
 
     @GetMapping
@@ -71,7 +71,7 @@ public class EquipmentController {
         Equipment equip2 = new Equipment();
         equip2 = equipmentService.update(equip, id);
         BeanUtils.copyProperties(equip2, equipDto);
-        return ResponseEntity.status(HttpStatus.ACCEPTED).body(equipDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(equipDto);
     }
 
     @GetMapping("/total")
