@@ -87,3 +87,10 @@ Adicionado ao arquivo pom.xml o trecho de código abaixo:
 Sair do sistema (Logout) só é possivel após expiração do token JWT. O modo escolhido para fazer logout foi excluir com javascript, no frontend, o token recebido. Para isso no arquivo __index.js__ foi implementada a função logout, que exclui a váriavel "token" implementada na sessionStorage que armazena o token necessário para autenticar as rotas.
 ### Exceções
 Quando usuário solicitava uma requisição com token inválido ou expirado o sistema retornava com status 500, para tratar esse erro foi desenvolvida a classe __TokenInvalidException.java__ que agora retorna status 403 Forbidden e mensagem "token inválido ou expirado".
+
+## EMAIL
+### Biblioteca
+Para utilizar essa funcão envio de email foi instalado a dependência spring-boot-starter-mail em sua versão 2.7.1 pois as versões 3.0 ou superior apresentaram incompatibilidade com a versão starter do framework.
+### Funcionalidade
+O envio de email é necessário para notificar, servir de documentação, fonte de consulta e/ou comprovação de recebimento ou devolução de material pelo agente da Guarda Municipal.  
+O GM ao efetuar procedimento de retirada/devolução de equipamento receberá de forma automática e-mail com arquivo .pdf em anexo comprovando a operação efetuada com sucesso.
