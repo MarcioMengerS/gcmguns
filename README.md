@@ -90,7 +90,21 @@ Quando usuário solicitava uma requisição com token inválido ou expirado o si
 
 ## EMAIL
 ### Biblioteca
-Para utilizar essa funcão envio de email foi instalado a dependência spring-boot-starter-mail em sua versão 2.7.1 pois as versões 3.0 ou superior apresentaram incompatibilidade com a versão starter do framework.
+Para utilizar essa funcão envio de email foi instalado a dependência spring-boot-starter-mail em sua versão 2.7.1 pois a versão 3.0 ou superior apresentou incompatibilidade com a versão starter do framework.
 ### Funcionalidade
 O envio de email é necessário para notificar, servir de documentação, fonte de consulta e/ou comprovação de recebimento ou devolução de material pelo agente da Guarda Municipal.  
-O GM ao efetuar procedimento de retirada/devolução de equipamento receberá de forma automática e-mail com arquivo .pdf em anexo comprovando a operação efetuada com sucesso.
+O GM ao efetuar procedimento de retirada/devolução de equipamento receberá de forma automática em sua caixa de mensagens e-mail com arquivo .pdf em anexo comprovando a operação efetuada com sucesso.
+#### Métodos implementados
+SendMail ==>  envia email para o destinatário  
+SendMailWithAttachment ==> envia email com documento em anexo.
+#### Configuração
+O arquivo application.properties contém as configurações do servidor de email do remetente.
+#### Arquivos
+Os seguintes arquivos foram criados para realizar tal função:  
+* model/Email.java  
+* controllers/EmailController.java  
+* service/EmailService.java
+#### Conteúdo Base
+Para realizar a tarefa de envio de email foi consultado o vídeo:  
+https://youtu.be/aq_g8sfJNZA?si=vB6V5ClmjIKVNRgV
+
