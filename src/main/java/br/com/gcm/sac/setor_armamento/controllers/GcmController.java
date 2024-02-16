@@ -22,7 +22,6 @@ import org.springframework.http.HttpStatus;
 import br.com.gcm.sac.setor_armamento.model.Gcm;
 import br.com.gcm.sac.setor_armamento.dto.GcmDTO;
 import br.com.gcm.sac.setor_armamento.service.GcmService;
-import br.com.gcm.sac.setor_armamento.service.EquipmentService;
 
 @RestController
 @RequestMapping("/gcm")
@@ -30,9 +29,6 @@ public class GcmController {
 
     @Autowired
     GcmService gcmService;
- 
-    @Autowired
-    EquipmentService equipmentService;
     
     //cria objeto GCM no BD
     @PostMapping

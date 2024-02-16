@@ -1,59 +1,51 @@
 package br.com.gcm.sac.setor_armamento.service;
 
+import javax.activation.DataHandler;
 import javax.mail.MessagingException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import javax.mail.util.ByteArrayDataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import br.com.gcm.sac.setor_armamento.model.Email;
-
 @Service
-@Component
 public class EmailService {
-    private final JavaMailSender mailSender;
+    @Autowired
+    private JavaMailSender mailSender;
 
     @Value("${spring.mail.username}")
     private String sender;
 
-    public EmailService(JavaMailSender mailSender) {
-        this.mailSender = mailSender;
-    }
+    public String sendMailWithAttachment(byte[] serializedPdf){
 
-    public String sendEmail(Email email){
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
         try {
-            SimpleMailMessage mailMessage = new SimpleMailMessage();
-            mailMessage.setFrom("EARC teste de envio de email<"+sender+">");
-            mailMessage.setTo(email.getRecipient());// recebedor do email
-            mailMessage.setSubject(email.getSubject());//título do emal
-            mailMessage.setText(email.getMessage());// mensagem enviada no corpo do email
+            mimeMessage.addHeader("Content-Type", "text/HTML; charset=UTF-8");//text/plain
+            mimeMessage.setFrom("EARC - GCM<"+sender+">");
+            mimeMessage.addRecipient(MimeMessage.RecipientType.TO, new InternetAddress("2018007159@restinga.ifrs.edu.br"));
+            mimeMessage.setSubject("Equipamento GCM");
 
-            mailSender.send(mailMessage);
-            return "Email enviado com sucesso!";
-        } catch (Exception e) {
-            return "Email enviado com erro: "+e;
-        }
-    }
+            MimeMultipart multipart = new MimeMultipart();
+            MimeBodyPart texPart = new MimeBodyPart();
+            texPart.setText("Mensagem Automática. Não responda esse EMAIL! "+
+                "Caso NÃO reconheça esse email ligue para 32897004");
+            multipart.addBodyPart(texPart);
 
+            MimeBodyPart pdfPart = new MimeBodyPart();
+            pdfPart.setDataHandler(new DataHandler(new ByteArrayDataSource(serializedPdf, "application/pdf")));
+            pdfPart.setFileName("cautela.pdf");
+            multipart.addBodyPart(pdfPart);
 
-    public String sendMailWithAttachment(Email email) throws MessagingException{
-        try {
-            MimeMessage mimiMessage = mailSender.createMimeMessage();
-            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimiMessage, true);
-            mimeMessageHelper.setFrom("EARC - GCM<"+sender+">");
-            mimeMessageHelper.setTo(email.getRecipient());
-            mimeMessageHelper.setSubject(email.getSubject());
-            mimeMessageHelper.setText(email.getMessage());
-            mimeMessageHelper.addAttachment(email.getAttachment().getOriginalFilename(), email.getAttachment());
-
-            mailSender.send(mimiMessage);
-            return "Mail sent successfully!";
-
-        } catch (Exception e) {
+            mimeMessage.setContent(multipart);
+            
+            mailSender.send(mimeMessage);
+            return "Email enviado com sucesso";
+        } catch (MessagingException e) {
             return "Mail sending error!"+e;
         }
     }
