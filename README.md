@@ -88,23 +88,34 @@ Sair do sistema (Logout) só é possivel após expiração do token JWT. O modo 
 ### Exceções
 Quando usuário solicitava uma requisição com token inválido ou expirado o sistema retornava com status 500, para tratar esse erro foi desenvolvida a classe __TokenInvalidException.java__ que agora retorna status 403 Forbidden e mensagem "token inválido ou expirado".
 
-## EMAIL
-### Biblioteca
-Para utilizar essa funcão envio de email foi instalado a dependência spring-boot-starter-mail em sua versão 2.7.1 pois a versão 3.0 ou superior apresentou incompatibilidade com a versão starter do framework.
+c
+Para utilizar essa função envio de email foi instalado a dependência spring-boot-starter-mail em sua versão 2.7.1 pois a versão 3.0 ou superior apresentou incompatibilidade com a versão starter do framework.
 ### Funcionalidade
-O envio de email é necessário para notificar, servir de documentação, fonte de consulta e/ou comprovação de recebimento ou devolução de material pelo agente da Guarda Municipal.  
-O GM ao efetuar procedimento de retirada/devolução de equipamento receberá de forma automática em sua caixa de mensagens e-mail com arquivo .pdf em anexo comprovando a operação efetuada com sucesso.
-#### Métodos implementados
-SendMail ==>  envia email para o destinatário  
-SendMailWithAttachment ==> envia email com documento em anexo.
-#### Configuração
-O arquivo application.properties contém as configurações do servidor de email do remetente.
-#### Arquivos
+O envio de email é necessário para notificar, servir de documentação, fonte de consulta e/ou comprovação de recebimento ou devolução de material pelo agente da Guarda Municipal, como ojetivo de evitar impressão de papel.  
+O GM ao efetuar procedimento de retirada/devolução de equipamento receberá de forma automática em sua caixa de mensagens e-mail com arquivo .pdf em anexo comprovando a operação efetuada com sucesso. Nessa primeira versão não há consolidação das informações de email e anexo.pdf.
+### Método implementado
+sendMailWithAttachment() ==> envia email com documento em anexo.
+### Configuração
+O arquivo application.properties contém as configurações do servidor de email do remetente como:  
+* Host, Port, Usarname, Password, Smtp
+### Arquivos
 Os seguintes arquivos foram criados para realizar tal função:  
-* model/Email.java  
 * controllers/EmailController.java  
 * service/EmailService.java
-#### Conteúdo Base
+### Base de Conhecimento
 Para realizar a tarefa de envio de email foi consultado o vídeo:  
 https://youtu.be/aq_g8sfJNZA?si=vB6V5ClmjIKVNRgV
-
+## PDF
+### Biblioteca
+O pacote **itextpd** em sua versão 5.5.13.3 foi adicionado ao arquivo POM.xml para gerar documentos com conteúdos no formato PDF. Os documentos serão enviados por email e gerados eventualmente de forma automática.
+### Funcionalidade
+A função recebe objeto das classe *GCM* e *Equipment* e com esses dados preencher de forma automática o documento a ser enviado ao destino. Escolhida a forma de retorno da função em bytes para se anexar a mensagem que será enviada por email.
+### Método implementado
+`public byte[] createPdf(Gcm gcm,Equipment equipment)`
+### Arquivos
+Arquivo criado para realizar tal função:  
+* service/PdfGeneratorService.java
+PdfGeneratorService
+## WebSocket
+### Biblioteca
+O pacote instalado para uso foi do prórprio framework, o spring boot starter websocket 3.2.2. As razões para uso dessa tecnologia foi a cominicação aberta entre servidores. O IOT ESP32+módulo RFID é um servidor que enviará informações para o backend
