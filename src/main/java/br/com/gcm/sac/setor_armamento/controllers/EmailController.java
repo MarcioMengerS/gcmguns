@@ -26,10 +26,10 @@ public class EmailController {
     
     @Autowired
     EmailService emailService;
-
+    //Envia Email para GCM com cautela em anexo
     @PostMapping("/sendMailWithAttachment/{idEquipment}/{numGcm}")//ModelAttribute usado com dados do tipo form-data @ModelAttribute String email
     public String sendMailWithAttachment(@PathVariable Integer idEquipment, @PathVariable Short numGcm) throws IOException, DocumentException{
-        //Busca Equipamento no Bnaco de dados
+        //Busca Equipamento no Banco de dados
         Equipment equipment = new Equipment();
         equipment = equipmentService.findById(idEquipment);
 
@@ -41,7 +41,7 @@ public class EmailController {
         PdfGeneratorService pdfGeneratorService = new PdfGeneratorService();
         byte[] serializedPdf = pdfGeneratorService.createPdf(gcm, equipment);
 
-        //Envia email com anexo pdf serializado
+        //Envia email com anexo pdf serializado(bytes)
         String responseEmail = emailService.sendMailWithAttachment(serializedPdf);
         return responseEmail;
     }
